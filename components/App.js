@@ -5,24 +5,25 @@ import '../App.css';
 
 class App extends React.Component {
 
-  state = {
-    ragnar: []
-  }
+  // state = {
+  //   ragnar: []
+  // }
 
-  componentDidMount(){
-    fetch('http://localhost:3000/data')
-    .then(resp => resp.json())
-    .then(data => this.setState({ ragnar: data }))
-  }  
+  // componentDidMount(){
+  //   fetch('http://localhost:3000/data')
+  //   .then(resp => resp.json())
+  //   .then(data => this.setState({ ragnar: data }))
+  // }  
+
+  // below is how to render Google Sheets API
+  // {this.state.ragnar.map((el, index) => (<div key={index}>{el[0]}</div>))}
 
   render(){
     return(
-        <div className='app'>
+        <div>
           <Header />
+          {/* add routes to render components below */}
           <Home />
-          {/* below is how to render Google Sheets API */}
-          {/* {this.state.ragnar.map((el, index) => (
-          <div key={index}>{el[0]}</div>))} */}
         </div>
     );
   }
