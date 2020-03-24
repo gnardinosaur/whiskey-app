@@ -25,7 +25,7 @@ module.exports = {
       }
     ]
   },
-  devtools: 'eval-source-map',
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: './dist',
   },
