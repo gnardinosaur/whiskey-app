@@ -5,11 +5,24 @@ module.exports = {
   mode: 'development',
   module: {
     rules: [
-      { test: /\.(js|jsx)$/, 
+      { 
+        test: /\.(js|jsx)$/, 
         exclude: /node_modules/, 
         use: {
-          loader: "babel-loader" }
+          loader: "babel-loader" 
         }
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 8000,
+        },
+      }
     ]
   },
   devServer: {
@@ -17,6 +30,6 @@ module.exports = {
   },
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist')
   }
 };

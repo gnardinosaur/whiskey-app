@@ -1,0 +1,40 @@
+html {
+  background-image: url('public/scotland.jpg');
+  background-size: cover;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.header {
+  color: whitesmoke;
+  padding: 2% 5%;
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  text-transform: uppercase;
+}
+
+#header-link {
+  margin: 1em;
+  color: whitesmoke;
+  border-color: whitesmoke;
+} 
+
+.home {
+  margin: 10% 10%;
+  width: 60%;
+  color: whitesmoke;
+}
+
+.home h1 {
+  font-size: 90px;
+}
+
+#home-btn {
+  margin-top: 3%;
+  background-color: whitesmoke;
+  color: black;
+}

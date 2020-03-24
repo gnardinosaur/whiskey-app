@@ -10,7 +10,7 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 const TOKEN_PATH = 'token.json';
 
 // Load client secrets from a local file.
-fs.readFile('../credentials.json', (err, content) => {
+fs.readFile('/credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Sheets API.
   authorize(JSON.parse(content), listData);
@@ -85,9 +85,6 @@ function listData(auth) {
         if (err) throw err;
         console.log('The file has been saved!');
       })
-      // rows.map((row) => {
-      //   fs.writeFile('test.json', JSON.stringify(rows));
-      // });
     } else {
       console.log('No data found.');
     }
