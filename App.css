@@ -1,7 +1,7 @@
 html {
+  font-family: 'Montserrat', sans-serif;
   background-image: url('public/scotland.jpg');
   background-size: cover;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .header {
@@ -23,13 +23,13 @@ html {
   border-color: whitesmoke;
 } 
 
-.home {
+#home-top {
   margin: 10% 10%;
   width: 60%;
   color: whitesmoke;
 }
 
-.home h1 {
+#home-top h1 {
   font-size: 90px;
 }
 
@@ -38,3 +38,18 @@ html {
   background-color: whitesmoke;
   color: black;
 }
+
+#home-bottom {
+  background-color: white;
+  width: 75%
+}
+
+#home-bottom p {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 5%;
+  font-weight: bold;
+  font-size: 36px;
+}
+
+
