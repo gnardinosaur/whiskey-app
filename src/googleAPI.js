@@ -10,10 +10,10 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
 const TOKEN_PATH = 'token.json';
 
 // Load client secrets from a local file.
-fs.readFile('/credentials.json', (err, content) => {
+fs.readFile('./credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Sheets API.
-  authorize(JSON.parse(content), listData);
+  authorize(JSON.parse(content), topTen);
 });
 
 /**
@@ -68,23 +68,24 @@ function getNewToken(oAuth2Client, callback) {
 
 /**
  * Prints the names and majors of students in a sample spreadsheet:
- * @see https://docs.google.com/spreadsheets/d/1eB4MnVbBlA74X4LNQpCkEJU6xih7AJpGryrW3dCqDyU/edit#gid=0
+ * @see https://docs.google.com/spreadsheets/d/1RSuvv3vVcr7xFm29P-2sbTGKCqs_mqRqDHeGzM9l-jA/edit#gid=863634413
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
-function listData(auth) {
+function topTen(auth) {
   const sheets = google.sheets({version: 'v4', auth});
   sheets.spreadsheets.values.get({
-    spreadsheetId: '1eB4MnVbBlA74X4LNQpCkEJU6xih7AJpGryrW3dCqDyU',
-    range: 'results!A2:C25',
+    spreadsheetId: '1RSuvv3vVcr7xFm29P-2sbTGKCqs_mqRqDHeGzM9l-jA',
+    range: 'Our whiskies!A2:E11',
   }, (err, res) => {
     if (err) return console.log('The API returned an error: ' + err);
     const rows = res.data.values;
     if (rows.length) {
-      let data = { data: rows }
-      fs.writeFile('test.json', JSON.stringify(data), (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-      })
+      console.log(rows)
+      // let topTen = { data: rows }
+      // fs.writeFile('top10.json', JSON.stringify(topTen), (err) => {
+      //   if (err) throw err;
+      //   console.log('The file has been saved!');
+      // })
     } else {
       console.log('No data found.');
     }

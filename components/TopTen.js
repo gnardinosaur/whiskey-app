@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Top10() {
+function TopTen() {
   const classes = useStyles();
   return (
     <Grid container justify='center' spacing={4}>
@@ -36,4 +36,4 @@ function Top10() {
   )
 };
 
-export default Top10;
+export default TopTen;
