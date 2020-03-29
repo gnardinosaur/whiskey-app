@@ -29,6 +29,7 @@ function TestForm(props) {
     .then(googleSignIn)
   };
 
+  //sign-in using 0Auth with scopes to read/write to sheets API
   function googleSignIn() {
     return gapi.auth2.getAuthInstance()
       .signIn({scope: SCOPE})
@@ -39,6 +40,7 @@ function TestForm(props) {
   function execute() {
     return gapi.client.sheets.spreadsheets.values.append({
       "spreadsheetId": SPREADSHEET_ID,
+      "key": API_KEY,
       "range": range,
       "valueInputOption": "RAW",
       "resource": {

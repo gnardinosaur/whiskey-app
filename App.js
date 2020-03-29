@@ -1,4 +1,5 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import GoogleSheetsProvider from 'react-db-google-sheets';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -7,14 +8,15 @@ import './App.css';
 
 class App extends React.Component {
 
-  render(){
-    return(
-      <GoogleSheetsProvider>
+  render() {
+    return (
+      <Switch>
+        <GoogleSheetsProvider>
         <Header />
-        {/* add routes to render components below */}
-        <Home />
-        <TestForm />
-      </GoogleSheetsProvider>
+        <Route path='/rate' exact component={TestForm} />
+        <Route path='/' exact component={Home} />
+        </GoogleSheetsProvider>
+      </Switch>
     );
   }
 }
