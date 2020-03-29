@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require("webpack");
 const dotenv = require('dotenv');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = () => {
   const env = dotenv.config().parsed;
@@ -37,15 +38,20 @@ module.exports = () => {
       ]
     },
     plugins: [
-      new webpack.DefinePlugin(envKeys)
+      new webpack.DefinePlugin(envKeys),
+      new HtmlWebpackPlugin({
+        template: 'dist/index.html'
+      })
     ],
     devtool: 'eval-source-map',
     devServer: {
       contentBase: './dist',
+      historyApiFallback: true
     },
     output: {
       filename: 'main.js',
-      path: path.resolve(__dirname, 'dist')
+      path: path.resolve(__dirname, 'dist'),
+      publicPath: '/'
     }
   }
 };
