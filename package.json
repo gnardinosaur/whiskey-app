@@ -33,7 +33,7 @@
     "@material-ui/styles": "^4.9.6",
     "babel-core": "^6.26.3",
     "core-util-is": "^1.0.2",
-    "googleapis": "^30.0.0",
+    "googleapis": "^39.2.0",
     "lodash": "^4.17.15",
     "react": "^16.13.0",
     "react-db-google-sheets": "^2.0.0",
