@@ -12,9 +12,9 @@ class App extends React.Component {
     return (
       <Switch>
         <GoogleSheetsProvider>
-        <Header />
-        <Route path='/rate' exact component={TestForm} />
-        <Route path='/' exact component={Home} />
+          <Header />
+          <Route path='/rate' exact component={TestForm} />
+          <Route path='/' exact component={Home} />
         </GoogleSheetsProvider>
       </Switch>
     );

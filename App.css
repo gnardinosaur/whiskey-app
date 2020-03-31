@@ -73,42 +73,10 @@ body {
   font-size: 3em;
 }
 
-#top-ten-card {
-  position: relative;
-  cursor: pointer;
-  background-color: lightgray;
-}
-
 #top-ten-card:hover #top-ten-card-img {
   opacity: 0.2;
 }
 
-#top-ten-card:hover .top-ten-card-middle {
+#top-ten-card:hover #top-ten-card-middle {
   opacity: 1;
-}
-
-.top-ten-card-middle {
-  transition: .5s ease;
-  opacity: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.top-ten-card-text {
-  color: black;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-.top-ten-card-text-2 {
-  color: black;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 1rem;
-  font-weight: bold;
-  padding-top: 5%;
 }
