@@ -34,6 +34,10 @@ body {
   border-color: whitesmoke;
 } 
 
+.router-link {
+  text-decoration: none;
+}
+
 .home-top {
   background-image: url('public/scotland.jpg');
   background-size: cover;

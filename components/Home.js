@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import TopTen from './TopTen';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
@@ -12,7 +13,9 @@ function Home() {
             <h1>Welcome to Whiskey Club NYC.</h1>
             <h3>"Too much of anything is bad, but too much good whiskey is barely enough."</h3>
             <h3 className='author-quote'>- Mark Twain</h3>
-            <Button id='home-btn' variant='contained'>Our Whiskies</Button>
+            <Link to='/whiskies' className='router-link'>
+              <Button id='home-btn' variant='contained'>Our Whiskies</Button>
+            </Link>
           </div>
         </Container>
       </div>
