@@ -43,10 +43,6 @@ const useStyles = makeStyles({
   }
 });
 
-function linkOut(e) {
-  window.open(e.target.closest('#top-ten-card').dataset.link, '_blank')
-}
-
 function TopTen(props) {
   const classes = useStyles();
   const [topTen, setTopTen] = useState([]);
@@ -59,15 +55,17 @@ function TopTen(props) {
     <Grid container justify='center' spacing={4}>
       {topTen.map(el =>
         <Grid item key={el.Whiskey} xs={6}>
-          <Card id='top-ten-card' className={classes.card} data-link={el.Link} onClick={linkOut}>
-            <CardMedia id='top-ten-card-img' className={classes.cardMedia} image={el.Image} />
-            <div id='top-ten-card-middle' className={classes.cardMiddle}>
-              <div className={classes.cardText}>#{el.Rank}</div>
-              <br />
-              <div className={classes.cardText}>{el.Whiskey}</div>
-              <div className={classes.cardText2}>{el.Theme}</div>
-            </div> 
-          </Card>
+          <a href={el.Link} target='_blank'>
+            <Card id='top-ten-card' className={classes.card} >
+              <CardMedia id='top-ten-card-img' className={classes.cardMedia} image={el.Image} />
+              <div id='top-ten-card-middle' className={classes.cardMiddle}>
+                <div className={classes.cardText}>#{el.Rank}</div>
+                <br />
+                <div className={classes.cardText}>{el.Whiskey}</div>
+                <div className={classes.cardText2}>{el.Theme}</div>
+              </div> 
+            </Card>
+          </a>
         </Grid>)}
     </Grid>
   )
