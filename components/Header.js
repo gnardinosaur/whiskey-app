@@ -1,20 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 
 function Header() {
+  const [scrollClassHeader, setScrollClassHeader] = useState(false);
+  const [scrollIDHeaderBtn, setScrollIDHeaderBtn] = useState(false)
+
+  useEffect(() => {
+    window.addEventListener('scroll', function() {
+      if(window.scrollY > 125) {
+        setScrollClassHeader(!scrollClassHeader)
+        setScrollIDHeaderBtn(!scrollIDHeaderBtn)
+      } else {
+        setScrollClassHeader(false)
+        setScrollIDHeaderBtn(false)
+      }
+    }) 
+  }, []);
+
+  
   return (
-    <div className='header'>
+    <div className={scrollClassHeader ? 'header-scroll' : 'header-top'}>
       <h1>Whiskey Club NYC</h1>
       <div>
         <Link to='/' className='router-link'>
-          <Button variant="outlined" id='header-btn'>Home</Button>
+          <Button variant="outlined" id={scrollIDHeaderBtn ? 'header-scroll-btn' : 'header-top-btn'}>Home</Button>
         </Link>
         <Link to='/whiskies' className='router-link'>
-          <Button variant="outlined" id='header-btn'>Our Whiskies</Button>
+          <Button variant="outlined" id={scrollIDHeaderBtn ? 'header-scroll-btn' : 'header-top-btn'}>Our Whiskies</Button>
         </Link>
         <Link to='/rate' className='router-link'>
-          <Button variant="outlined" id='header-btn'>Rate</Button>
+          <Button variant="outlined" id={scrollIDHeaderBtn ? 'header-scroll-btn' : 'header-top-btn'}>Rate</Button>
         </Link>
       </div>
     </div>

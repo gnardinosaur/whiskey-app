@@ -34,24 +34,26 @@ module.exports = () => {
           options: {
             limit: 8000,
           },
-        }
+        },
       ]
     },
-    plugins: [
-      new webpack.DefinePlugin(envKeys),
-      new HtmlWebpackPlugin({
-        template: 'dist/index.html'
-      })
-    ],
     devtool: 'eval-source-map',
     devServer: {
       contentBase: './dist',
       historyApiFallback: true
     },
+    plugins: [
+      new webpack.DefinePlugin(envKeys),
+      new HtmlWebpackPlugin({
+        template: './dist/index.html',
+        filename: 'index.html',
+        inject: false
+      }),
+    ],
     output: {
       filename: 'main.js',
       path: path.resolve(__dirname, 'dist'),
       publicPath: '/'
-    }
+    },
   }
 };
