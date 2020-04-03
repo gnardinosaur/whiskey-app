@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import BannerWrap from './BannerWrap';
 
 function TestForm(props) {
   const SPREADSHEET_ID = '1RSuvv3vVcr7xFm29P-2sbTGKCqs_mqRqDHeGzM9l-jA';
@@ -9,9 +10,9 @@ function TestForm(props) {
 
   const [input, setInput] = useState('');
 
-  useEffect(() => {
-    initClient()
-  }, []);
+  // useEffect(() => {
+  //   initClient()
+  // }, []);
   
   //initialize Google API
   function initClient() {
@@ -62,12 +63,17 @@ function TestForm(props) {
   };
 
   return (
-    <div style={{ textAlign: 'center', padding: '10%' }}>
-      <form onSubmit={handleSubmit}>
-        <label style={{ padding: '1%' }}>test.</label>
-        <input type='text' value={input} onChange={e => setInput(e.target.value)} />
-        <button style={{ marginLeft: '2%' }} type='submit'>submit test</button>
-      </form> 
+    <div className='rate-form'>
+      <BannerWrap />
+      <p>Whiskey ratings</p>
+      <p id='rate-small-text'>Access the form directly <a href='https://docs.google.com/spreadsheets/d/1RSuvv3vVcr7xFm29P-2sbTGKCqs_mqRqDHeGzM9l-jA/edit#gid=339018668' target='_blank'>here</a></p>
+      <div className='form-container'>
+        <form onSubmit={handleSubmit}>
+          <label style={{ padding: '1%' }}>test.</label>
+          <input type='text' value={input} onChange={e => setInput(e.target.value)} />
+          <button style={{ marginLeft: '2%' }} type='submit'>submit test</button>
+        </form> 
+      </div>
     </div>
   )
 }

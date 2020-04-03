@@ -166,10 +166,23 @@ body {
   opacity: 1;
 }
 
-/* media queries */
+.banner-wrap {
+  background-image: url('public/scotland.jpg');
+  background-size: cover;
+  height: 10em; 
+  background-position: right 0% top 38%;
+}
 
-/* @media only screen and (max-width: 600px) {
-  .top-ten-item {
-    height: 200px;
-  }
-} */
+.rate-form p {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1%;
+  font-weight: bold;
+  font-size: 2.5em;
+}
+
+#rate-small-text {
+  text-align: center;
+  margin-bottom: 5%;
+  font-size: 1em;
+}
