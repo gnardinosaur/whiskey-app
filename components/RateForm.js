@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { withGoogleSheets } from 'react-db-google-sheets';
 import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
 
 function RateForm(props) {
   const [selectData, setSelectData] = useState({
@@ -74,34 +76,50 @@ function RateForm(props) {
   console.log(formData)
   
   return (
-    <div className='rate-form-container'>
+    <form className='rate-form-container'>
       <div>
-      <FormControl required id='rate-form-field'>
-        <InputLabel>Name</InputLabel>
-        <Select name='name' value={formData.name} onChange={handleChange}>
-          {nameSelect}
-        </Select>
+        <FormControl required id='rate-form-field'>
+          <InputLabel>Name</InputLabel>
+          <Select name='name' value={formData.name} onChange={handleChange}>
+            {nameSelect}
+          </Select>
+        </FormControl>
+      </div>
+      <div>
+        <FormControl required id='rate-form-field'>
+          <InputLabel>Month</InputLabel>
+          <Select name='month' value={formData.month} onChange={handleChange}>
+            {monthSelect}
+          </Select>
+        </FormControl>
+      </div>
+      <div>
+        <FormControl required id='rate-form-field'>
+          <InputLabel>Year</InputLabel>
+          <Select name='year' value={formData.year} onChange={handleChange}>
+            {yearSelect}
+          </Select>
+        </FormControl>
+      </div>
+      <div>
+        <FormControl id='rate-form-field'>
+          <InputLabel>Rating for Whiskey #1</InputLabel>
+          <Input />
+        </FormControl>
+      </div>
+      <div>
+      <FormControl id='rate-form-field'>
+        <InputLabel>Rating for Whiskey #2</InputLabel>
+        <Input />
       </FormControl>
       </div>
       <div>
-      <FormControl required id='rate-form-field'>
-        <InputLabel>Month</InputLabel>
-        <Select name='month' value={formData.month} onChange={handleChange}>
-          {monthSelect}
-        </Select>
+      <FormControl id='rate-form-field'>
+        <InputLabel>Rating for Whiskey #3</InputLabel>
+        <Input />
       </FormControl>
       </div>
-      <div>
-      <FormControl required id='rate-form-field'>
-        <InputLabel>Year</InputLabel>
-        <Select name='year' value={formData.year} onChange={handleChange}>
-          {yearSelect}
-        </Select>
-      </FormControl>
-      </div>
-      {/* add whiskey #1, #2, and #3 */}
-      {/* button for more rating fields */}
-    </div>
+    </form>
   )
 };
 
