@@ -8,7 +8,7 @@ function Header() {
 
   useEffect(() => {
     window.addEventListener('scroll', function() {
-      if(window.scrollY > 125) {
+      if(window.scrollY > 100) {
         setScrollClassHeader(!scrollClassHeader)
         setScrollIDHeaderBtn(!scrollIDHeaderBtn)
       } else {
@@ -21,7 +21,7 @@ function Header() {
   
   return (
     <div className={scrollClassHeader ? 'header-scroll' : 'header-top'}>
-      <h1>Whiskey Club NYC</h1>
+      <Link to='/' className='router-link'><h1>Whiskey Club NYC</h1></Link>
       <div>
         <Link to='/' className='router-link'>
           <Button variant="outlined" id={scrollIDHeaderBtn ? 'header-scroll-btn' : 'header-top-btn'}>Home</Button>
@@ -35,6 +35,8 @@ function Header() {
       </div>
     </div>
   )
-}
+};
 
 export default Header;
+
+
