@@ -22,11 +22,13 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  transition: color .5s ease, padding .5s ease
+  transition: .5s
 }
 
 .header-top h1 {
   text-transform: uppercase;
+  transition: .5s;
+  cursor: pointer;
 }
 
 .header-scroll {
@@ -42,30 +44,34 @@ body {
   left: 0;
   right: 0;
   z-index: 1;
-  transition: color .5s ease, padding .5s ease
+  transition: .5s
 }
 
 .header-scroll h1 {
   text-transform: uppercase;
   font-size: 1.5em;
   font-weight: bold;
-  transition: font-size .5s ease,
+  transition: .5s;
+  cursor: pointer;
 }
 
 #header-top-btn {
   margin: 1em;
   color: whitesmoke;
   border-color: whitesmoke;
+  transition: .5s
 } 
 
 #header-scroll-btn {
   margin: 1em;
   color: black;
   border-color: black;
+  transition: .5s
 }
 
 .router-link {
   text-decoration: none;
+  color: inherit;
 }
 
 .home-top {
@@ -166,10 +172,32 @@ body {
   opacity: 1;
 }
 
-/* media queries */
+.banner-wrap {
+  background-image: url('public/scotland.jpg');
+  background-size: cover;
+  height: 10em; 
+  background-position: right 0% top 38%;
+}
 
-/* @media only screen and (max-width: 600px) {
-  .top-ten-item {
-    height: 200px;
-  }
-} */
+.rate p {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1%;
+  font-weight: bold;
+  font-size: 2.5em;
+}
+
+#rate-small-text {
+  text-align: center;
+  margin-bottom: 5%;
+  font-size: 1em;
+}
+
+.rate-form-container {
+  text-align: center;
+}
+
+#rate-form-field {
+  width: 30%;
+  margin-bottom: 3%
+}

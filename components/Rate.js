@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import BannerWrap from './BannerWrap';
+import RateForm from './RateForm';
 
-function TestForm(props) {
+function Rate(props) {
   const SPREADSHEET_ID = '1RSuvv3vVcr7xFm29P-2sbTGKCqs_mqRqDHeGzM9l-jA';
   const CLIENT_ID = '957948898145-tsr1r2k0bcjiajemaqgajd3j2sqs21a0.apps.googleusercontent.com';
   const API_KEY = 'AIzaSyBpL_uFNZj6-xqT3w5R8pvLdHN7CUqPadM';
@@ -9,9 +11,9 @@ function TestForm(props) {
 
   const [input, setInput] = useState('');
 
-  useEffect(() => {
-    initClient()
-  }, []);
+  // useEffect(() => {
+  //   initClient()
+  // }, []);
   
   //initialize Google API
   function initClient() {
@@ -36,40 +38,15 @@ function TestForm(props) {
       .then(function() { console.log("Sign-in successful"); },
             function(err) { console.error("Error signing in", err); })
   }
-
-  function execute() {
-    return gapi.client.sheets.spreadsheets.values.append({
-      "spreadsheetId": SPREADSHEET_ID,
-      "key": API_KEY,
-      "range": range,
-      "valueInputOption": "RAW",
-      "resource": {
-        "values": [
-          [input]
-        ]
-      }
-    })
-    .then(function(response) {
-      // Handle the results here (response.result has the parsed body).
-      console.log("Response", response);
-      },
-      function(err) { console.error("Execute error", err); });
-  };
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    execute();  
-  };
-
+  
   return (
-    <div style={{ textAlign: 'center', padding: '10%' }}>
-      <form onSubmit={handleSubmit}>
-        <label style={{ padding: '1%' }}>test.</label>
-        <input type='text' value={input} onChange={e => setInput(e.target.value)} />
-        <button style={{ marginLeft: '2%' }} type='submit'>submit test</button>
-      </form> 
+    <div className='rate'>
+      <BannerWrap />
+      <p>Whiskey ratings</p>
+      <p id='rate-small-text'>Access full ratings <a href='https://docs.google.com/spreadsheets/d/1RSuvv3vVcr7xFm29P-2sbTGKCqs_mqRqDHeGzM9l-jA/edit#gid=1971787420' target='_blank'>here</a></p>
+      <RateForm />
     </div>
   )
 }
 
-export default TestForm;
+export default Rate;
