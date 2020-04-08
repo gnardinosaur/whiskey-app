@@ -8,7 +8,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 
 function RateForm(props) {
-  const [formInputs, setFormInputs] = useState([1, 2, 3]);
+  const [formInputs, setFormInputs] = useState([0, 1, 2]);
 
 
   const [selectData, setSelectData] = useState({
@@ -21,7 +21,7 @@ function RateForm(props) {
     name: '',
     month: '',
     year: '',
-    ratings: []
+    ratings: ['', '', '']
   });
 
 
@@ -42,12 +42,24 @@ function RateForm(props) {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
-      
-    })
+    });
   };
 
+  function handleInput(e){
+    let targetIndex = parseInt(e.target.name);
+    let newRatings = [...formData.ratings].map((el, index) => index === targetIndex ? e.target.value : el)
+    setFormData({
+      ...formData,
+      ratings: newRatings
+    })
+  }
+
   function addInput(){
-    setFormInputs(formInputs.concat(formInputs.length + 1))
+    setFormInputs([...formInputs, formInputs.length]);
+    setFormData({
+      ...formData,
+      ratings: [...formData.ratings, '']
+    })
   }
 
   function execute() {
@@ -75,7 +87,9 @@ function RateForm(props) {
   
   let yearSelect = selectData.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
 
-  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el}></RateInput>)
+  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} handleInput={handleInput}></RateInput>)
+
+  console.log(formData.ratings)
   
   return (
     <form className='rate-form-container' onSubmit={handleSubmit}>
