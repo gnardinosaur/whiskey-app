@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { withGoogleSheets } from 'react-db-google-sheets';
+import RateInput from './RateInput';
 import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import Button from '@material-ui/core/Button';
 
 function RateForm(props) {
+  const [formInputs, setFormInputs] = useState([1, 2, 3]);
+
+
   const [selectData, setSelectData] = useState({
     names: [],
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -26,12 +29,13 @@ function RateForm(props) {
     setSelectData({
       ...selectData,
       names: props.db.Members
-    })  
+    });
   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
-    execute();  
+    console.log('submitted')
+    // execute();  
   };
 
   function handleChange(e){
@@ -40,6 +44,10 @@ function RateForm(props) {
       [e.target.name]: e.target.value
       
     })
+  };
+
+  function addInput(){
+    setFormInputs(formInputs.concat(formInputs.length + 1))
   }
 
   function execute() {
@@ -61,22 +69,16 @@ function RateForm(props) {
       function(err) { console.error("Execute error", err); });
   };
 
-  let nameSelect = selectData.names.map(el =>
-    <MenuItem key={el.Members} value={el.Members}>{el.Members}</MenuItem>
-  )
+  let nameSelect = selectData.names.map(el => <MenuItem key={el.Members} value={el.Members}>{el.Members}</MenuItem>)
 
-  let monthSelect = selectData.months.map(el =>
-    <MenuItem key={el} value={el}>{el}</MenuItem>
-  )
+  let monthSelect = selectData.months.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
+  
+  let yearSelect = selectData.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
 
-  let yearSelect = selectData.years.map(el =>
-    <MenuItem key={el} value={el}>{el}</MenuItem>
-  )
-
-  console.log(formData)
+  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el}></RateInput>)
   
   return (
-    <form className='rate-form-container'>
+    <form className='rate-form-container' onSubmit={handleSubmit}>
       <div>
         <FormControl required id='rate-form-field'>
           <InputLabel>Name</InputLabel>
@@ -101,23 +103,13 @@ function RateForm(props) {
           </Select>
         </FormControl>
       </div>
+      {/* num of rating inputs - default, can add more onClick */}
+      {ratingInputs}
       <div>
-        <FormControl id='rate-form-field'>
-          <InputLabel>Rating for Whiskey #1</InputLabel>
-          <Input />
-        </FormControl>
+        <Button variant='contained' id='rate-another-btn' onClick={addInput}>Rate Another Whiskey</Button>
       </div>
       <div>
-      <FormControl id='rate-form-field'>
-        <InputLabel>Rating for Whiskey #2</InputLabel>
-        <Input />
-      </FormControl>
-      </div>
-      <div>
-      <FormControl id='rate-form-field'>
-        <InputLabel>Rating for Whiskey #3</InputLabel>
-        <Input />
-      </FormControl>
+        <Button variant='contained' id='submit-btn'>Submit</Button>
       </div>
     </form>
   )
