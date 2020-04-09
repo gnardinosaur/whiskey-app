@@ -6,10 +6,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import { validate } from '../helpers';
 
 function RateForm(props) {
   const [formInputs, setFormInputs] = useState([0, 1, 2]);
-
 
   const [selectData, setSelectData] = useState({
     names: [],
@@ -25,7 +25,6 @@ function RateForm(props) {
     inputErrors: false
   });
 
-
   useEffect(() => {
     setSelectData({
       ...selectData,
@@ -33,8 +32,18 @@ function RateForm(props) {
     });
   }, []);
 
-  function handleSubmit(e) {
+  function validateFormInputs(e) {
     e.preventDefault();
+    let name = formData.name;
+    let month = formData.month;
+    let year = formData.year;
+    let ratings = formData.ratings;
+    let errors = validate(name, month, year, ratings);
+
+  }
+
+
+  function handleSubmit(e) {
     setFormData({
       ...formData,
       inputErrors: formData.ratings.forEach(el => {
@@ -97,14 +106,14 @@ function RateForm(props) {
 
   let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput}></RateInput>)
 
-  console.log(formData)
+  //console.log(formData)
   
   return (
-    <form className='rate-form-container' onSubmit={handleSubmit}>
+    <form className='rate-form-container' onSubmit={validateFormInputs}>
       <div>
         <FormControl required id='rate-form-field'>
           <InputLabel>Name</InputLabel>
-          <Select name='name' value={formData.name} onChange={handleChange}>
+          <Select error name='name' value={formData.name} onChange={handleChange}>
             {nameSelect}
           </Select>
         </FormControl>
@@ -112,7 +121,7 @@ function RateForm(props) {
       <div>
         <FormControl required id='rate-form-field'>
           <InputLabel>Month</InputLabel>
-          <Select name='month' value={formData.month} onChange={handleChange}>
+          <Select error name='month' value={formData.month} onChange={handleChange}>
             {monthSelect}
           </Select>
         </FormControl>
@@ -120,7 +129,7 @@ function RateForm(props) {
       <div>
         <FormControl required id='rate-form-field'>
           <InputLabel>Year</InputLabel>
-          <Select name='year' value={formData.year} onChange={handleChange}>
+          <Select error name='year' value={formData.year} onChange={handleChange}>
             {yearSelect}
           </Select>
         </FormControl>
