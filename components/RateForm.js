@@ -21,7 +21,8 @@ function RateForm(props) {
     name: '',
     month: '',
     year: '',
-    ratings: ['', '', '']
+    ratings: ['', '', ''],
+    inputErrors: false
   });
 
 
@@ -34,7 +35,14 @@ function RateForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('submitted')
+    setFormData({
+      ...formData,
+      inputErrors: formData.ratings.forEach(el => {
+        if(parseInt(el) > 100 || parseInt(el) < 0 || typeof el !== Number) {
+          return true
+        }
+      })
+    })
     // execute();  
   };
 
@@ -87,9 +95,9 @@ function RateForm(props) {
   
   let yearSelect = selectData.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
 
-  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} handleInput={handleInput}></RateInput>)
+  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput}></RateInput>)
 
-  console.log(formData.ratings)
+  console.log(formData)
   
   return (
     <form className='rate-form-container' onSubmit={handleSubmit}>
@@ -123,7 +131,8 @@ function RateForm(props) {
         <Button variant='contained' id='rate-another-btn' onClick={addInput}>Rate Another Whiskey</Button>
       </div>
       <div>
-        <Button variant='contained' id='submit-btn'>Submit</Button>
+        <Button variant='contained' id='submit-btn' type='submit'>Submit</Button>
+        <p className={formData.inputErrors ? 'show-input-error' : 'hide-input-error' }>Whiskey Ratings must be between 0 and 100.</p>
       </div>
     </form>
   )

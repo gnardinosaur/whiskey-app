@@ -214,3 +214,12 @@ body {
   color: whitesmoke;
   width: 30%;
 }
+
+.hide-input-error {
+  display: none;
+}
+
+.rate p.show-input-error {
+  color: red;
+  font-size: 1em;
+}
