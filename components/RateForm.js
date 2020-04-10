@@ -11,6 +11,13 @@ import { validate } from '../helpers';
 function RateForm(props) {
   const [formInputs, setFormInputs] = useState([0, 1, 2]);
 
+  const [errors, setErrors] = useState({
+    name: false,
+    month: false,
+    year: false,
+    ratings: [false, false, false]
+  });
+
   const [selectData, setSelectData] = useState({
     names: [],
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -22,7 +29,6 @@ function RateForm(props) {
     month: '',
     year: '',
     ratings: ['', '', ''],
-    inputErrors: false
   });
 
   useEffect(() => {
@@ -34,24 +40,13 @@ function RateForm(props) {
 
   function validateFormInputs(e) {
     e.preventDefault();
-    let name = formData.name;
-    let month = formData.month;
-    let year = formData.year;
-    let ratings = formData.ratings;
-    let errors = validate(name, month, year, ratings);
-
+    let errorState = {...errors};
+    let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, errorState);
+    setErrors(inputErrors)
   }
 
 
   function handleSubmit(e) {
-    setFormData({
-      ...formData,
-      inputErrors: formData.ratings.forEach(el => {
-        if(parseInt(el) > 100 || parseInt(el) < 0 || typeof el !== Number) {
-          return true
-        }
-      })
-    })
     // execute();  
   };
 
@@ -76,6 +71,10 @@ function RateForm(props) {
     setFormData({
       ...formData,
       ratings: [...formData.ratings, '']
+    });
+    setErrors({
+      ...errors,
+      ratings: [...errors.ratings, '']
     })
   }
 
@@ -104,7 +103,7 @@ function RateForm(props) {
   
   let yearSelect = selectData.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
 
-  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput}></RateInput>)
+  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]}></RateInput>)
 
   //console.log(formData)
   
@@ -113,7 +112,7 @@ function RateForm(props) {
       <div>
         <FormControl required id='rate-form-field'>
           <InputLabel>Name</InputLabel>
-          <Select error name='name' value={formData.name} onChange={handleChange}>
+          <Select error={errors.name ? true : false} name='name' value={formData.name} onChange={handleChange}>
             {nameSelect}
           </Select>
         </FormControl>
@@ -121,7 +120,7 @@ function RateForm(props) {
       <div>
         <FormControl required id='rate-form-field'>
           <InputLabel>Month</InputLabel>
-          <Select error name='month' value={formData.month} onChange={handleChange}>
+          <Select error={errors.month ? true : false} name='month' value={formData.month} onChange={handleChange}>
             {monthSelect}
           </Select>
         </FormControl>
@@ -129,7 +128,7 @@ function RateForm(props) {
       <div>
         <FormControl required id='rate-form-field'>
           <InputLabel>Year</InputLabel>
-          <Select error name='year' value={formData.year} onChange={handleChange}>
+          <Select error={errors.year ? true : false} name='year' value={formData.year} onChange={handleChange}>
             {yearSelect}
           </Select>
         </FormControl>
