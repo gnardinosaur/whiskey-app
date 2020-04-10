@@ -13,7 +13,7 @@ function Home() {
             <h1>Welcome to Whiskey Club NYC.</h1>
             <h3>"Too much of anything is bad, but too much good whiskey is barely enough."</h3>
             <h3 className='author-quote'>- Mark Twain</h3>
-            <Link to='/whiskies' className='router-link'>
+            <Link to='/our-whiskies' className='router-link'>
               <Button id='home-btn' variant='contained'>Our Whiskies</Button>
             </Link>
           </div>

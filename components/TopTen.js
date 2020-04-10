@@ -4,6 +4,7 @@ import { withGoogleSheets } from 'react-db-google-sheets';
 function TopTen(props) {
   const [topTen, setTopTen] = useState([]);
 
+  // read top ten whiskies from Google sheet --> top ten links and images are handled in the sheet
   useEffect(() => {
     setTopTen(props.db['Our whiskies'].slice(0, 10))
   }, []);

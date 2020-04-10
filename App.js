@@ -4,16 +4,21 @@ import GoogleSheetsProvider from 'react-db-google-sheets';
 import Header from './components/Header';
 import Home from './components/Home';
 import Rate from './components/Rate';
+import OurWhiskies from './components/OurWhiskies';
 import './App.css';
+require('dotenv').config();
+
 
 class App extends React.Component {
 
   render() {
     return (
       <Switch>
-        <GoogleSheetsProvider>
+        {/* wrapped in GoogleSheets HOC to read values */}
+        <GoogleSheetsProvider> 
           <Header />
           <Route path='/rate' exact component={Rate} />
+          <Route path='/our-whiskies' exact component={OurWhiskies} />
           <Route path='/' exact component={Home} />
         </GoogleSheetsProvider>
       </Switch>

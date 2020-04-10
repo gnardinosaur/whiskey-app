@@ -6,6 +6,8 @@ function Header() {
   const [scrollClassHeader, setScrollClassHeader] = useState(false);
   const [scrollIDHeaderBtn, setScrollIDHeaderBtn] = useState(false)
 
+
+  // rebuild in a react-y way (see Trello board for link)
   useEffect(() => {
     window.addEventListener('scroll', function() {
       if(window.scrollY > 100) {
@@ -26,7 +28,7 @@ function Header() {
         <Link to='/' className='router-link'>
           <Button variant="outlined" id={scrollIDHeaderBtn ? 'header-scroll-btn' : 'header-top-btn'}>Home</Button>
         </Link>
-        <Link to='/whiskies' className='router-link'>
+        <Link to='/our-whiskies' className='router-link'>
           <Button variant="outlined" id={scrollIDHeaderBtn ? 'header-scroll-btn' : 'header-top-btn'}>Our Whiskies</Button>
         </Link>
         <Link to='/rate' className='router-link'>
