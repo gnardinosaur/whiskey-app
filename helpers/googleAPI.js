@@ -1,22 +1,16 @@
-
-  import db from 'dotenv';
-
-  const SPREADSHEET_ID = '1RSuvv3vVcr7xFm29P-2sbTGKCqs_mqRqDHeGzM9l-jA';
-  const CLIENT_ID = '957948898145-tsr1r2k0bcjiajemaqgajd3j2sqs21a0.apps.googleusercontent.com';
-  const API_KEY = 'AIzaSyBpL_uFNZj6-xqT3w5R8pvLdHN7CUqPadM';
-  const SCOPE = "https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets";
+  // secrets from .env
+  const SPREADSHEET_ID = process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID;
+  const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  const API_KEY = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY;
+  const SCOPE = 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets';
   const range = 'test';
 
-  // useEffect(() => {
-  //   initClient()
-  // }, []);
-
-  //initialize Google API
-  function initClient() {
-    gapi.load("client:auth2", authenticate)
+  // initialize Google API
+  export function initClient() {
+    gapi.load('client:auth2', authenticate)
   };
 
-  //provide 0Auth credentials
+  // provide 0Auth credentials
   function authenticate() {
     gapi.client.init({
       'client_id': CLIENT_ID,
@@ -27,7 +21,7 @@
     .then(googleSignIn)
   };
 
-  //sign-in using 0Auth with scopes to read/write to sheets API
+  // sign-in using 0Auth with scopes so we can read/write sheet with GoogleSheets API -- log success or errors to console for debugging
   function googleSignIn() {
     return gapi.auth2.getAuthInstance()
       .signIn({scope: SCOPE})
@@ -35,21 +29,22 @@
             function(err) { console.error("Error signing in", err); })
   }
 
-  function execute() {
-    return gapi.client.sheets.spreadsheets.values.append({
-      "spreadsheetId": SPREADSHEET_ID,
-      "key": API_KEY,
-      "range": range,
-      "valueInputOption": "RAW",
-      "resource": {
-        "values": [
-          [input]
-        ]
-      }
-    })
-    .then(function(response) {
-      // Handle the results here (response.result has the parsed body).
-      console.log("Response", response);
-      },
-      function(err) { console.error("Execute error", err); });
+  export function execute() {
+    console.log('execute')
+    // return gapi.client.sheets.spreadsheets.values.append({
+    //   "spreadsheetId": SPREADSHEET_ID,
+    //   "key": API_KEY,
+    //   "range": range,
+    //   "valueInputOption": "RAW",
+    //   "resource": {
+    //     "values": [
+    //       [input]
+    //     ]
+    //   }
+    // })
+    // .then(function(response) {
+    //   // Handle the results here (response.result has the parsed body).
+    //   console.log("Response", response);
+    //   },
+    //   function(err) { console.error("Execute error", err); });
   };

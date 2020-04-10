@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect }from 'react';
 import BannerWrap from './BannerWrap';
 import RateForm from './RateForm';
 
 function Rate() {
-  console.log(db)
   return (
     <div className='rate'>
       <BannerWrap />
@@ -12,6 +11,6 @@ function Rate() {
       <RateForm />
     </div>
   )
-}
+};
 
 export default Rate;
