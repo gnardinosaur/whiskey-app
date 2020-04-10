@@ -6,24 +6,29 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import { validate } from '../helpers';
+import { validate } from '../helpers/formValidation';
 
 function RateForm(props) {
+  // using this state to render correct number of whiskey rating inputs
   const [formInputs, setFormInputs] = useState([0, 1, 2]);
 
+  // using this state to track and dispaly errors + as a boolean to submit form or not
   const [errors, setErrors] = useState({
+    hasErros: false,
     name: false,
     month: false,
     year: false,
     ratings: [false, false, false]
   });
 
+  // using this state to set selects 
   const [selectData, setSelectData] = useState({
     names: [],
     months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     years: [2020, 2021]
   });
 
+  // using this state to control form selects and inputs 
   const [formData, setFormData] = useState({
     name: '',
     month: '',
@@ -31,6 +36,7 @@ function RateForm(props) {
     ratings: ['', '', ''],
   });
 
+  // set selects and pull member name data from GoogleSheet
   useEffect(() => {
     setSelectData({
       ...selectData,
@@ -38,15 +44,19 @@ function RateForm(props) {
     });
   }, []);
 
+  // validate form inputs using helper function 
   function validateFormInputs(e) {
     e.preventDefault();
     let errorState = {...errors};
     let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, errorState);
     setErrors(inputErrors)
+    if(errors.hasErrors === false) {
+      submitForm()
+    }
   }
 
-
-  function handleSubmit(e) {
+  // start GoogleAPI login & submit waterfall from helpers file 
+  function submitForm() {
     // execute();  
   };
 
@@ -57,6 +67,7 @@ function RateForm(props) {
     });
   };
 
+  // set whiskey rating inputs -- must map through to keep correct oder in formData.ratings arr
   function handleInput(e){
     let targetIndex = parseInt(e.target.name);
     let newRatings = [...formData.ratings].map((el, index) => index === targetIndex ? e.target.value : el)
@@ -67,45 +78,28 @@ function RateForm(props) {
   }
 
   function addInput(){
-    setFormInputs([...formInputs, formInputs.length]);
+    setFormInputs([...formInputs, formInputs.length]); // when rate another whiskey btn is clicked add another num to formInput arr
     setFormData({
       ...formData,
-      ratings: [...formData.ratings, '']
+      ratings: [...formData.ratings, ''] // when rate another whiskey btn is clicked add another blank element to formData.ratings arr for control
     });
     setErrors({
       ...errors,
-      ratings: [...errors.ratings, '']
+      ratings: [...errors.ratings, ''] // when rate another whiskey btn is clicked add another blank element to errors.ratings arr for error tracking
     })
   }
 
-  function execute() {
-    return gapi.client.sheets.spreadsheets.values.append({
-      "spreadsheetId": SPREADSHEET_ID,
-      "key": API_KEY,
-      "range": range,
-      "valueInputOption": "RAW",
-      "resource": {
-        "values": [
-          [input]
-        ]
-      }
-    })
-    .then(function(response) {
-      // Handle the results here (response.result has the parsed body).
-      console.log("Response", response);
-      },
-      function(err) { console.error("Execute error", err); });
-  };
-
+  // build members select
   let nameSelect = selectData.names.map(el => <MenuItem key={el.Members} value={el.Members}>{el.Members}</MenuItem>)
 
+  // build month select
   let monthSelect = selectData.months.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
   
+  // build year select
   let yearSelect = selectData.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
 
+  // render correct number of whiskey rating inputs
   let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]}></RateInput>)
-
-  //console.log(formData)
   
   return (
     <form className='rate-form-container' onSubmit={validateFormInputs}>
@@ -133,14 +127,12 @@ function RateForm(props) {
           </Select>
         </FormControl>
       </div>
-      {/* num of rating inputs - default, can add more onClick */}
       {ratingInputs}
       <div>
         <Button variant='contained' id='rate-another-btn' onClick={addInput}>Rate Another Whiskey</Button>
       </div>
       <div>
         <Button variant='contained' id='submit-btn' type='submit'>Submit</Button>
-        <p className={formData.inputErrors ? 'show-input-error' : 'hide-input-error' }>Whiskey Ratings must be between 0 and 100.</p>
       </div>
     </form>
   )
