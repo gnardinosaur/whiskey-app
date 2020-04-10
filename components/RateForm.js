@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { validate } from '../helpers/formValidation';
+import { initClient, execute } from '../helpers/googleAPI';
 
 function RateForm(props) {
   // using this state to render correct number of whiskey rating inputs
@@ -14,7 +15,7 @@ function RateForm(props) {
 
   // using this state to track and dispaly errors + as a boolean to submit form or not
   const [errors, setErrors] = useState({
-    hasErros: false,
+    hasErrors: false,
     name: false,
     month: false,
     year: false,
@@ -55,9 +56,10 @@ function RateForm(props) {
     }
   }
 
-  // start GoogleAPI login & submit waterfall from helpers file 
+  // start GoogleAPI login & submit waterfall from helpers dist 
   function submitForm() {
-    // execute();  
+    initClient();
+    // execute()
   };
 
   function handleChange(e){

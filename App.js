@@ -6,8 +6,6 @@ import Home from './components/Home';
 import Rate from './components/Rate';
 import OurWhiskies from './components/OurWhiskies';
 import './App.css';
-require('dotenv').config();
-
 
 class App extends React.Component {
 
