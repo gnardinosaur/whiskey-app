@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { validate } from '../helpers/formValidation';
-import { initClient, execute } from '../helpers/googleAPI';
+import { initClient, cleanFormData, postFormData } from '../helpers/googleAPI';
 
 function RateForm(props) {
   // using this state to render correct number of whiskey rating inputs
@@ -45,21 +45,25 @@ function RateForm(props) {
     });
   }, []);
 
+  useEffect(() => {
+    // initiate Google API client 
+    initClient(submitForm)
+  }, [errors.hasErrors]);
+
   // validate form inputs using helper function 
   function validateFormInputs(e) {
     e.preventDefault();
     let errorState = {...errors};
     let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, errorState);
-    setErrors(inputErrors)
-    if(errors.hasErrors === false) {
-      submitForm()
-    }
-  }
+    setErrors(inputErrors);
+  };
 
-  // start GoogleAPI login & submit waterfall from helpers dist 
+  // clean formData (function in googleAPI.js helper) & post inputs to Google sheet
   function submitForm() {
-    initClient();
-    // execute()
+    let promise = new Promise((res, rej) => {
+      res(cleanFormData(formData))
+    })
+    promise.then(cleanData => postFormData(cleanData))
   };
 
   function handleChange(e){
@@ -77,7 +81,7 @@ function RateForm(props) {
       ...formData,
       ratings: newRatings
     })
-  }
+  };
 
   function addInput(){
     setFormInputs([...formInputs, formInputs.length]); // when rate another whiskey btn is clicked add another num to formInput arr
@@ -89,7 +93,7 @@ function RateForm(props) {
       ...errors,
       ratings: [...errors.ratings, ''] // when rate another whiskey btn is clicked add another blank element to errors.ratings arr for error tracking
     })
-  }
+  };
 
   // build members select
   let nameSelect = selectData.names.map(el => <MenuItem key={el.Members} value={el.Members}>{el.Members}</MenuItem>)
@@ -102,7 +106,7 @@ function RateForm(props) {
 
   // render correct number of whiskey rating inputs
   let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]}></RateInput>)
-  
+  console.log(errors.hasErrors)
   return (
     <form className='rate-form-container' onSubmit={validateFormInputs}>
       <div>
