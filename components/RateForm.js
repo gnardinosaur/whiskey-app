@@ -15,7 +15,7 @@ function RateForm(props) {
 
   // using this state to track and dispaly errors + as a boolean to submit form or not
   const [errors, setErrors] = useState({
-    hasErrors: false,
+    isValid: false,
     name: false,
     month: false,
     year: false,
@@ -29,14 +29,6 @@ function RateForm(props) {
     years: [2020, 2021]
   });
 
-  // using this state to control form selects and inputs 
-  const [formData, setFormData] = useState({
-    name: '',
-    month: '',
-    year: '',
-    ratings: ['', '', ''],
-  });
-
   // set selects and pull member name data from GoogleSheet
   useEffect(() => {
     setSelectData({
@@ -45,17 +37,28 @@ function RateForm(props) {
     });
   }, []);
 
-  useEffect(() => {
-    // initiate Google API client 
-    initClient(submitForm)
-  }, [errors.hasErrors]);
+  // using this state to control form selects and inputs 
+  const [formData, setFormData] = useState({
+    name: '',
+    month: '',
+    year: '',
+    ratings: ['', '', ''],
+  });
 
   // validate form inputs using helper function 
   function validateFormInputs(e) {
     e.preventDefault();
     let errorState = {...errors};
     let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, errorState);
-    setErrors(inputErrors);
+    let promise = new Promise((res, rej) => {
+      setErrors(inputErrors)
+    });
+    promise.then(() => {
+      // set an isValid 
+      if(isValid === true) {
+        initClient(submitForm)
+      } 
+    })
   };
 
   // clean formData (function in googleAPI.js helper) & post inputs to Google sheet
