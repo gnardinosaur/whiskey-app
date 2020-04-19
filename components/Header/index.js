@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 import Button from '@material-ui/core/Button';
 
 import styles from './styles.scss';
@@ -16,7 +17,7 @@ function Header() {
   // rebuild in a react-y way (see Trello board for link)
   useEffect(() => {
     window.addEventListener('scroll', function() {
-      if(window.scrollY > 100) {
+      if(window.scrollY > 70) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -25,12 +26,17 @@ function Header() {
   }, []);
 
   return (
-    <div className={isScrolled ? styles['header-scroll'] : styles['header-top']}>
+    <div className={classnames(
+      styles.header,
+      isScrolled && styles.scrolled
+    )}>
       <Link to='/' className='router-link'><h1>Whiskey Club NYC</h1></Link>
       <div>
         {LINKS.map(link => (
           <Link to={link.href} className='router-link'>
-            <Button variant="outlined" id={isScrolled ? styles['header-scroll-btn'] : styles['header-top-btn']}>{link.text}</Button>
+            <Button variant="outlined" className={classnames(styles.navLink, isScrolled && styles.scrolled)}>
+              {link.text}
+            </Button>
           </Link>
         ))}
       </div>
