@@ -1,0 +1,62 @@
+/* header attrs when scrolled < X pixels (set in Header component) from top */
+.header-top {
+  color: whitesmoke;
+  padding: 2% 5%;
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: .5s
+}
+
+.header-top h1 {
+  text-transform: uppercase;
+  transition: .5s;
+  cursor: pointer;
+  margin: 0.5rem 0;
+}
+
+/* header attrs when scrolled > X pixels (set in Header component) from top */
+.header-scroll {
+  color: black;
+  background: whitesmoke;
+  padding: 1% 5%;
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  transition: .5s
+}
+
+.header-scroll h1 {
+  text-transform: uppercase;
+  font-size: 1.5em;
+  font-weight: bold;
+  transition: .5s;
+  cursor: pointer;
+}
+
+/* header button attrs when scrolled < X pixels (set in Header component) from top */
+#header-top-btn {
+  margin: 1em;
+  color: whitesmoke;
+  border-color: whitesmoke;
+  transition: .5s
+} 
+
+/* header button attrs when scrolled > X pixels (set in Header component) from top */
+#header-scroll-btn {
+  margin: 1em;
+  color: black;
+  border-color: black;
+  transition: .5s
+}
