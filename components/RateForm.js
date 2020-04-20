@@ -54,7 +54,7 @@ function RateForm(props) {
       setErrors(inputErrors)
     });
     promise.then(() => {
-      // set an isValid 
+      // set isValid 
       if(isValid === true) {
         initClient(submitForm)
       } 
