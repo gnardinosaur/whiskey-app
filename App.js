@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import Rate from './components/Rate';
 import OurWhiskies from './components/OurWhiskies';
-import './App.css';
+import './App.global.scss';
 
 class App extends React.Component {
 

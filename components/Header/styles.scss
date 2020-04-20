@@ -1,0 +1,73 @@
+/* header attrs when scrolled < X pixels (set in Header component) from top */
+@use "sass:color";
+
+$transition-time: .3s;
+
+.header {
+  color: whitesmoke;
+  padding: 1.25rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0);
+  transition: $transition-time;
+
+  h1 {
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin: 0.5rem 0;
+    font-size: 1.75rem;
+    transition: $transition-time;
+  }
+
+  &.scrolled {
+    color: black;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.075);
+    padding: .5rem 3rem;
+
+    h1 {
+      color: black;
+      font-size: 1.5rem;
+    }
+  }
+
+  .navLink {
+    margin: 0 1rem;
+    color: whitesmoke;
+    display: inline-block;
+    transition: $transition-time;
+    font-size: .8rem;
+    text-transform: uppercase;
+    padding: 4px;
+
+    
+    &:hover  {
+      color: scale-color(whitesmoke, $lightness: -15%);
+    }
+    
+    &.active {
+      color: #18dcff;
+    }
+
+    &.scrolled {
+      color: black;
+
+      &:hover  {
+        color: scale-color(black, $lightness: +50%);
+      }
+      &.active {
+        color: #e67e22;
+      }
+    }
+
+  }
+
+}
+
