@@ -35,7 +35,7 @@
     })
     return dataArr
   };
-
+  
   export function postFormData(data) {
     return gapi.client.sheets.spreadsheets.values.append({
       "spreadsheetId": process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID,
