@@ -6,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import { validate } from '../helpers/formValidation';
+import { validate, checkForTrueValues } from '../helpers/formValidation';
 import { initClient, cleanFormData, postFormData } from '../helpers/googleAPI';
 
 function RateForm(props) {
@@ -15,7 +15,6 @@ function RateForm(props) {
 
   // using this state to track and dispaly errors + as a boolean to submit form or not
   const [errors, setErrors] = useState({
-    isValid: false,
     name: false,
     month: false,
     year: false,
@@ -45,20 +44,16 @@ function RateForm(props) {
     ratings: ['', '', ''],
   });
 
-  // validate form inputs using helper function 
   function validateFormInputs(e) {
     e.preventDefault();
-    let errorState = {...errors};
-    let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, errorState);
+    let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, {...errors});
     let promise = new Promise((res, rej) => {
-      setErrors(inputErrors)
+      res(setErrors(inputErrors))
     });
     promise.then(() => {
-      // set isValid 
-      if(isValid === true) {
-        initClient(submitForm)
-      } 
-    })
+      // if inputErrors has any true values do not initiate Google client 
+      if(checkForTrueValues(inputErrors)) initClient(submitForm)      
+    });
   };
 
   // clean formData (function in googleAPI.js helper) & post inputs to Google sheet
@@ -70,6 +65,12 @@ function RateForm(props) {
   };
 
   function handleChange(e){
+    // if input has error, remove error for that input
+    if(errors[e.target.name]) setErrors({
+      ...errors,
+      [e.target.name]: false
+    });
+
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -79,11 +80,17 @@ function RateForm(props) {
   // set whiskey rating inputs -- must map through to keep correct oder in formData.ratings arr
   function handleInput(e){
     let targetIndex = parseInt(e.target.name);
-    let newRatings = [...formData.ratings].map((el, index) => index === targetIndex ? e.target.value : el)
+    // if error, remove error for that input
+    if(errors.ratings[targetIndex]) setErrors({
+      ...errors,
+      ratings: errors.ratings.map((el, idx) => idx === targetIndex ? false : el)
+    });
+
+    let userRatings = [...formData.ratings].map((el, index) => index === targetIndex ? e.target.value : el)
     setFormData({
       ...formData,
-      ratings: newRatings
-    })
+      ratings: userRatings
+    });
   };
 
   function addInput(){
@@ -109,7 +116,7 @@ function RateForm(props) {
 
   // render correct number of whiskey rating inputs
   let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]}></RateInput>)
-  console.log(errors.hasErrors)
+  
   return (
     <form className='rate-form-container' onSubmit={validateFormInputs}>
       <div>
