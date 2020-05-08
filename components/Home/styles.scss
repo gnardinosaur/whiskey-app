@@ -1,0 +1,36 @@
+// standardize media query with mixin and then use the query inline
+@mixin mobile {
+  @media (max-width: 414px) {
+    @content;
+  }
+}
+
+// background image lives here --> padding is important, it's what stretches the image behind the header
+.homeTop {
+  background-image: url('../../public/scotland.jpg');
+  background-size: cover;
+  padding: 7em 0;
+}
+
+.homeTopContent {
+  margin: 12% 10% 5% 10%;
+  width: 65%;
+  color: whitesmoke;
+}
+
+.homeTopContent h1 {
+  font-size: 5em;
+  @include mobile {
+    font-size: 2em
+  }
+}
+.homeTopContent h3 {
+  @include mobile {
+    font-size: 1em
+  }
+}
+
+.authorQuote {
+  text-indent: 3%;
+}
+

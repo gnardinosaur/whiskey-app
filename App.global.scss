@@ -16,26 +16,26 @@ body {
   color: inherit;
 }
 
-/* background image lives here --> padding is important, it's what stretches the  */
-.home-top {
-  background-image: url('public/scotland.jpg');
-  background-size: cover;
-  padding: 7em 0
-}
+/* background image lives here --> padding is important, it's what stretches the image behind the header */
+// .home-top {
+//   background-image: url('public/scotland.jpg');
+//   background-size: cover;
+//   padding: 7em 0
+// }
 
-.home-top-content {
-  margin: 12% 10% 5% 10%;
-  width: 65%;
-  color: whitesmoke;
-}
+// .home-top-content {
+//   margin: 12% 10% 5% 10%;
+//   width: 65%;
+//   color: whitesmoke;
+// }
 
-.home-top-content h1 {
-  font-size: 5em;
-}
+// .home-top-content h1 {
+//   font-size: 5em;
+// }
 
-.author-quote {
-  text-indent: 3%;
-}
+// .author-quote {
+//   text-indent: 3%;
+// }
 
 /* Our Whiskies button in top of Home page under the quote*/
 #home-btn {
