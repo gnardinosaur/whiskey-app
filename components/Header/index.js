@@ -24,7 +24,6 @@ function Header() {
       }
     }, 100));
   }, []);
-
   return (
     <div className={classnames(
       styles.header,

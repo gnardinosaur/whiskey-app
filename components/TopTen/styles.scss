@@ -1,0 +1,104 @@
+// standardize media query with mixin and then use the query inline
+@mixin mobile {
+  @media (max-width: 414px) {
+    @content;
+  }
+}
+
+.topTenContainer {
+  display: flex;
+  flex-wrap: wrap;
+
+  &:nth-last-child(-n+2) {
+    margin-bottom: 10%
+  }
+}
+
+.topTenItem {
+  padding: .5em;
+  margin: .2em;
+  flex: 0 0 calc(50% - 10px);
+  background-color: #d3d3d3;
+  display: flex;
+  align-items: center;
+}
+
+/* div overlay on each item so we can stretch image inside of it*/
+.topTenCard {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    opacity: 1;
+    transition: .5s ease;
+  }
+
+  &:hover {
+    
+    img {
+      opacity: 0.2;
+    }
+
+    .topTenCardMiddle {
+      opacity: 1;
+    }
+  }
+
+  @include mobile {
+    overflow: visible;
+    
+    //max-width is the important attr here - it sizes image to it's parent div size and allows cards to flex 50% of #top-ten-container
+    img {
+      opacity: .3;
+    }
+  }
+
+}
+
+/* container for text that shows on hover */
+.topTenCardMiddle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  div {
+    color: black;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  .themeText {
+    font-size: 1em;
+    padding-top: 5%;
+  }
+
+  @include mobile {
+    opacity: 1;
+    
+    div {
+      font-size: 1em;
+      margin-bottom: 5%;
+    } 
+
+    .themeText {
+      font-size: .75em;
+      padding-top: 5%
+    }
+
+    br {
+      display: none
+    }
+  }
+
+}
+
+
+

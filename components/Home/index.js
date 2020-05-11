@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TopTen from '../TopTen';
+import TopTen from '../TopTen/index';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import styles from './styles.scss';
@@ -16,12 +16,12 @@ function Home() {
             <h3>"Too much of anything is bad, but too much good whiskey is barely enough."</h3>
             <h3 className={styles.authorQuote}>- Mark Twain</h3>
             <Link to='/our-whiskies' className='router-link'>
-              <Button id='home-btn' variant='contained'>Our Whiskies</Button>
+              <Button id={styles.homeBtn} variant='contained'>Our Whiskies</Button>
             </Link>
           </div>
         </Container>
       </div>
-      <Container id='home-bottom'>
+      <Container id={styles.homeBottom}>
         <p>Our Top 10</p>
         <TopTen />
       </Container>
