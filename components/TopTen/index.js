@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { withGoogleSheets } from 'react-db-google-sheets';
+import styles from './styles.scss';
 
 function TopTen(props) {
   const [topTen, setTopTen] = useState([]);
 
-  // read top ten whiskies from Google sheet --> top ten links and images are handled in the sheet
+  // read top ten whiskies from Google sheet --> top ten links and images are handled within the Google sheet
   useEffect(() => {
     setTopTen(props.db['Our whiskies'].slice(0, 10))
   }, []);
 
   return (
-    <div className='top-ten-container'>
+    <div className={styles.topTenContainer}>
       {topTen.map(el =>
-        <div className='top-ten-item' key={el.Whiskey}>
+        <div className={styles.topTenItem} key={el.Whiskey}>
           <a href={el.Link} target='_blank'>
-            <div className='top-ten-card'>
-              <img className='top-ten-card-img' src={el.Image} alt={el.Whiskey}/>
-              <div className='top-ten-card-middle'>
+            <div className={styles.topTenCard}>
+              <img src={el.Image} alt={el.Whiskey}/>
+              <div className={styles.topTenCardMiddle}>
                 <div>#{el.Rank}</div>
                 <br />
                 <div>{el.Whiskey}</div>
-                <div className='text-2'>{el.Theme}</div>
+                <div className={styles.themeText}>{el.Theme}</div>
               </div> 
             </div>
           </a>
