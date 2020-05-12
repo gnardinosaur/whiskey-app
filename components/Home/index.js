@@ -4,9 +4,18 @@ import TopTen from '../TopTen/index';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import styles from './styles.scss';
+import { withStyles } from '@material-ui/core/styles';
 
+const customStyles = {
+  button: {
+    marginTop: '3%',
+    backgroundColor: 'whitesmoke',
+    color: 'black'
+  }
+}
 
-function Home() {
+function Home(props) {
+  const { classes } = props 
   return (
     <div>
       <div className={styles.homeTop}>
@@ -16,20 +25,20 @@ function Home() {
             <h3>"Too much of anything is bad, but too much good whiskey is barely enough."</h3>
             <h3 className={styles.authorQuote}>- Mark Twain</h3>
             <Link to='/our-whiskies' className='router-link'>
-              <Button id={styles.homeBtn} variant='contained'>Our Whiskies</Button>
+              <Button className={classes.button} variant='contained'>Our Whiskies</Button>
             </Link>
           </div>
         </Container>
       </div>
-      <Container id={styles.homeBottom}>
+      <div className={styles.homeBottom}>
         <p>Our Top 10</p>
         <TopTen />
-      </Container>
+      </div>
     </div>
   )
 };
 
-export default Home;
+export default withStyles(customStyles)(Home);
 
 
 
