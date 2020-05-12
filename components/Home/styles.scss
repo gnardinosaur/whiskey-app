@@ -34,23 +34,17 @@
   text-indent: 3%;
 }
 
-/* 'Our Whiskies' button in top of Home page component under the quote*/
-#homeBtn {
-  margin-top: 3%;
-  background-color: whitesmoke;
-  color: black;
-}
-
-#homeBottom {
+.homeBottom {
   background-color: white;
   width: 75%;
+  margin: auto;
 
   @include mobile {
     width: 85%
   }
 }
 
-#homeBottom p {
+.homeBottom p {
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 5%;
