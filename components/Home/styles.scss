@@ -37,6 +37,7 @@
 .homeBottom {
   background-color: white;
   width: 75%;
+  margin: auto;
 
   @include mobile {
     width: 85%
