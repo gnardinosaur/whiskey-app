@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import GoogleSheetsProvider from 'react-db-google-sheets';
-import Header from './components/Header';
-import Home from './components/Home';
-import Rate from './components/Rate';
+import Header from './components/Header/index';
+import Home from './components/Home/index';
+import Rate from './components/Rate/index';
 import OurWhiskies from './components/OurWhiskies';
 import './App.global.scss';
 
