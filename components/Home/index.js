@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import TopTen from '../TopTen/index';
 import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
 import styles from './styles.scss';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -19,7 +18,7 @@ function Home(props) {
   return (
     <div>
       <div className={styles.homeTop}>
-        <Container>
+        <div>
           <div className={styles.homeTopContent}>
             <h1>Welcome to Whiskey Club NYC.</h1>
             <h3>"Too much of anything is bad, but too much good whiskey is barely enough."</h3>
@@ -28,7 +27,7 @@ function Home(props) {
               <Button className={classes.button} variant='contained'>Our Whiskies</Button>
             </Link>
           </div>
-        </Container>
+        </div>
       </div>
       <div className={styles.homeBottom}>
         <p>Our Top 10</p>
