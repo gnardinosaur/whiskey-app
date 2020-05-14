@@ -1,6 +1,6 @@
 import React from 'react';
 import BannerWrap from '../BannerWrap';
-import RateForm from '../RateForm';
+import RateForm from '../RateForm/index';
 import styles from './styles.scss';
 
 function Rate() {
