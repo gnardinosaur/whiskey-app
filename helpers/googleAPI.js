@@ -37,6 +37,12 @@
   };
   
   export function postFormData(data) {
+    // add simplified timestamp at beginning of 'data' array
+    let date = new Date().toString();
+    let i = date.indexOf('G');
+    let timestamp = date.substring(0, i - 1);
+    data.unshift(timestamp);
+
     return gapi.client.sheets.spreadsheets.values.append({
       "spreadsheetId": process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID,
       "key": process.env.REACT_APP_GOOGLE_SHEETS_API_KEY,
@@ -47,7 +53,7 @@
       }
     })
     .then(function(response) {
-      // Handle the results here (response.result has the parsed body).
+      // Handle the results here (response.result containes the parsed response body).
       console.log("Response", response);
       },
       function(err) { console.error("Execute error", err); });

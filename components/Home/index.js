@@ -1,9 +1,9 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import styles from './styles.scss';
 import { Link } from 'react-router-dom';
 import TopTen from '../TopTen/index';
 import Button from '@material-ui/core/Button';
-import styles from './styles.scss';
-import { withStyles } from '@material-ui/core/styles';
 
 const customStyles = {
   button: {
@@ -14,7 +14,9 @@ const customStyles = {
 }
 
 function Home(props) {
+  // 'classes' object contains customStyles css 
   const { classes } = props 
+
   return (
     <div>
       <div className={styles.homeTop}>

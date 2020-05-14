@@ -12,24 +12,20 @@ export function validate(name, month, year, ratings, errors) {
 
   for(let i = 0; i < ratings.length; i++) {
     if(parseInt(ratings[i]) > 100 || parseInt(ratings[i]) < 0 || isNaN(ratings[i])) {
-      debugger 
       errors.ratings[i] = true;
     }
   };
-
+  
   return errors
 };
 
-export function checkForTrueValues(object, valid = true) {
-  
+export function checkForTrueValues(object, hasNoInputErrors = true) {
   for(let key in object) {
     if(object[key] instanceof Array) {
-      checkForTrueValues(object[key], valid)
+      checkForTrueValues(object[key], hasNoInputErrors)
     } else {
-      if(object[key]) valid = false;
+      if(object[key]) hasNoInputErrors = false;
     }
   }
-  
-  debugger;
-  return valid 
+  return hasNoInputErrors 
 }

@@ -1,15 +1,59 @@
 import React, { useState, useEffect } from 'react';
+import styles from './styles.scss';
+import classnames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
 import { withGoogleSheets } from 'react-db-google-sheets';
-import RateInput from './RateInput';
+import RateInput from '../RateInput/index';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import { validate, checkForTrueValues } from '../helpers/formValidation';
-import { initClient, cleanFormData, postFormData } from '../helpers/googleAPI';
+import { validate, checkForTrueValues } from '../../helpers/formValidation';
+import { initClient, cleanFormData, postFormData } from '../../helpers/googleAPI';
+
+// custom css for Material UI components 
+const customStyles = {
+  rateFormField: {
+    width: '30%',
+    marginBottom: '3%',
+    '@media (max-width: 414px)': {
+      width: '50%',
+      marginBottom: '5%',
+    }
+  },
+  rateAnotherButton: {
+    backgroundColor: '#002F35',
+    color: 'whitesmoke',
+    marginBottom: '1%',
+    width: '30%',
+    // do not change button color on hover
+    '&:hover': {
+      backgroundColor: '#002F35'
+    },
+    '@media (max-width: 414px)': {
+      width: '65%',
+      marginBottom: '5%'
+    }
+  },
+  submitButton: {
+    backgroundColor: '#004A2F',
+    color: 'whitesmoke',
+    width: '30%',
+    // do not change button color on hover
+    '&:hover': {
+      backgroundColor: '#004A2F'
+    },
+    '@media (max-width: 414px)': {
+      width: '65%',
+    }
+  }
+}
 
 function RateForm(props) {
+  // 'classes' object contains customStyles css 
+  const { classes } = props 
+
   // using this state to render correct number of whiskey rating inputs
   const [formInputs, setFormInputs] = useState([0, 1, 2]);
 
@@ -115,12 +159,12 @@ function RateForm(props) {
   let yearSelect = selectData.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
 
   // render correct number of whiskey rating inputs
-  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]}></RateInput>)
+  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]} css={classes.rateFormField}></RateInput>)
   
   return (
-    <form className='rate-form-container' onSubmit={validateFormInputs}>
+    <form className={styles.rateFormContainer} onSubmit={validateFormInputs}>
       <div>
-        <FormControl required id='rate-form-field'>
+        <FormControl required className={classes.rateFormField}>
           <InputLabel>Name</InputLabel>
           <Select error={errors.name ? true : false} name='name' value={formData.name} onChange={handleChange}>
             {nameSelect}
@@ -128,7 +172,7 @@ function RateForm(props) {
         </FormControl>
       </div>
       <div>
-        <FormControl required id='rate-form-field'>
+        <FormControl required className={classes.rateFormField}>
           <InputLabel>Month</InputLabel>
           <Select error={errors.month ? true : false} name='month' value={formData.month} onChange={handleChange}>
             {monthSelect}
@@ -136,7 +180,7 @@ function RateForm(props) {
         </FormControl>
       </div>
       <div>
-        <FormControl required id='rate-form-field'>
+        <FormControl required className={classes.rateFormField}>
           <InputLabel>Year</InputLabel>
           <Select error={errors.year ? true : false} name='year' value={formData.year} onChange={handleChange}>
             {yearSelect}
@@ -145,15 +189,22 @@ function RateForm(props) {
       </div>
       {ratingInputs}
       <div>
-        <Button variant='contained' id='rate-another-btn' onClick={addInput}>Rate Another Whiskey</Button>
+        <Button className={classnames(
+          classes.rateAnotherButton,
+          
+          )} 
+          variant='contained'
+          onClick={addInput}>
+            Rate Another Whiskey
+        </Button>
       </div>
       <div>
-        <Button variant='contained' id='submit-btn' type='submit'>Submit</Button>
+        <Button variant='contained' className={classes.submitButton} type='submit'>Submit</Button>
       </div>
     </form>
   )
 };
 
-export default withGoogleSheets('Members')(RateForm);
+export default withGoogleSheets('Members')(withStyles(customStyles)(RateForm));
 
 
