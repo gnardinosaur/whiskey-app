@@ -22,31 +22,28 @@ const customStyles = {
       marginBottom: '5%',
     }
   },
-  rateAnotherButton: {
-    backgroundColor: '#002F35',
+  rateButton: {
     color: 'whitesmoke',
     marginBottom: '1%',
     width: '30%',
+    '@media (max-width: 414px)': {
+      width: '65%',
+      marginBottom: '3%'
+    }
+  },
+  rateAnotherButton: {
+    backgroundColor: '#002F35',
     // do not change button color on hover
     '&:hover': {
       backgroundColor: '#002F35'
-    },
-    '@media (max-width: 414px)': {
-      width: '65%',
-      marginBottom: '5%'
     }
   },
   submitButton: {
     backgroundColor: '#004A2F',
-    color: 'whitesmoke',
-    width: '30%',
     // do not change button color on hover
     '&:hover': {
       backgroundColor: '#004A2F'
     },
-    '@media (max-width: 414px)': {
-      width: '65%',
-    }
   }
 }
 
@@ -190,16 +187,25 @@ function RateForm(props) {
       {ratingInputs}
       <div>
         <Button className={classnames(
-          classes.rateAnotherButton,
-          
+          classes.rateButton,
+          classes.rateAnotherButton
           )} 
           variant='contained'
-          onClick={addInput}>
-            Rate Another Whiskey
+          onClick={addInput}
+        >
+          Rate Another Whiskey
         </Button>
       </div>
       <div>
-        <Button variant='contained' className={classes.submitButton} type='submit'>Submit</Button>
+        <Button className={classnames(
+          classes.rateButton,
+          classes.submitButton
+          )}
+          variant='contained'
+          type='submit'
+        >
+          Submit
+        </Button>
       </div>
     </form>
   )

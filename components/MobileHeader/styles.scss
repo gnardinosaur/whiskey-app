@@ -1,0 +1,54 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 1em 0 1em;
+  position: fixed;
+  color: whitesmoke;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  h3 {
+    opacity: 1;
+
+    &.show {
+      opacity: 0;
+    }
+  }
+}
+
+.hamburger {
+  display: inline-block;
+}
+
+.bar {
+  width: 35px;
+  height: 5px;
+  background-color:whitesmoke;
+  margin: 6px 0;
+  transition: 0.4s;
+
+  &.showHamburger {
+    
+    &.one {
+      transform: rotate(-45deg) translate(-9px, 6px);
+    }
+    
+    &.two {
+      opacity: 0;
+    }
+  
+    &.three {
+      transform: rotate(45deg) translate(-8px, -8px);
+    }
+  }
+}
+
+.navMenu {
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}

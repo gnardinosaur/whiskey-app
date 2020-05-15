@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { LINKS } from '../../constants/links';
 import { throttle } from 'lodash';
 import classnames from 'classnames';
 import styles from './styles.scss';
-
-const LINKS = [
-  {text: 'Home', href: '/'},
-  {text: 'Our Whiskeys', href: '/our-whiskies'},
-  {text: 'Rate', href: '/rate'},
-]
 
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
