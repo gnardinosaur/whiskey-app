@@ -8,6 +8,14 @@
   top: 0;
   left: 0;
   right: 0;
+
+  h3 {
+    opacity: 1;
+
+    &.show {
+      opacity: 0;
+    }
+  }
 }
 
 .hamburger {
@@ -21,7 +29,7 @@
   margin: 6px 0;
   transition: 0.4s;
 
-  &.change {
+  &.showHamburger {
     
     &.one {
       transform: rotate(-45deg) translate(-9px, 6px);
@@ -34,5 +42,13 @@
     &.three {
       transform: rotate(45deg) translate(-8px, -8px);
     }
+  }
+}
+
+.navMenu {
+  display: none;
+
+  &.show {
+    display: block;
   }
 }
