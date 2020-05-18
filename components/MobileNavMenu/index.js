@@ -17,7 +17,9 @@ function MobileNavMenu(props) {
           <div className={classnames(
             styles.link,
             show && styles.show
-          )}>
+          )}
+          onClick={props.click}
+          >
             {link.text}
           </div>
         </Link>

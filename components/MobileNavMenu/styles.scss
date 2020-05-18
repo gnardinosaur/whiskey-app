@@ -5,7 +5,7 @@
   z-index: 2;
   text-align: center;
   text-transform: uppercase;
-  background: #d3d3d3cc;
+  background: rgba(6,6,6,0.8);
   transition: 0.4s;
   
   &.show {
@@ -14,13 +14,15 @@
   }
 
   & .link {
-    margin-bottom: 5%;
     // negative margin takes links off the page so they are not visible/clickable when menu is closed
     margin-top: -10%;
+    color: whitesmoke;
+    margin-bottom: 5%;
     transition: 0.4s;
 
     &.show {
       margin-top: 0;
+      font-size: 2em;
     }
   }
 }

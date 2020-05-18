@@ -49,7 +49,7 @@ function MobileHeader() {
         </div>
       </div>
       {/* navigation menu  */}
-      <MobileNavMenu show={navState.showNav} />
+      <MobileNavMenu show={navState.showNav} click={toggleHamburgerClass} />
     </div>
   )
 };
