@@ -9,10 +9,14 @@
   left: 0;
   right: 0;
 
+  &.hide{
+    z-index: 3;
+  }
+
   h3 {
     opacity: 1;
 
-    &.show {
+    &.hide {
       opacity: 0;
     }
   }
@@ -33,6 +37,7 @@
     
     &.one {
       transform: rotate(-45deg) translate(-9px, 6px);
+      background-color: black;
     }
     
     &.two {
@@ -41,14 +46,8 @@
   
     &.three {
       transform: rotate(45deg) translate(-8px, -8px);
+      background-color: black;
     }
   }
 }
 
-.navMenu {
-  display: none;
-
-  &.show {
-    display: block;
-  }
-}

@@ -20,9 +20,12 @@ function MobileHeader() {
 
   return (
     <div>
-      <div className={styles.header}>
+      <div className={classnames(
+        styles.header,
+        navState.showNav && styles.hide
+        )}>
         <Link to='/' className='router-link'><h3 className={classnames(
-          navState.showNav && styles.show
+          navState.showNav && styles.hide
           )}>
             Whiskey Club NYC
           </h3>
@@ -46,12 +49,7 @@ function MobileHeader() {
         </div>
       </div>
       {/* navigation menu  */}
-      <div className={classnames(
-        styles.navMenu,
-        navState.showNav && styles.show
-      )}>
-        <MobileNavMenu />
-      </div>
+      <MobileNavMenu show={navState.showNav} />
     </div>
   )
 };
