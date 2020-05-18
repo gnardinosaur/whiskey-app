@@ -9,6 +9,14 @@
   left: 0;
   right: 0;
 
+  &.scrolled {
+    background-color: whitesmoke;
+    color: black;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 2;
+  }
+
   &.hide{
     z-index: 3;
   }
@@ -33,11 +41,14 @@
   margin: 6px 0;
   transition: 0.4s;
 
-  &.showHamburger {
+  &.scrolled {
+    background-color: black;
+  }
+
+  &.showX {
     
     &.one {
       transform: rotate(-45deg) translate(-9px, 6px);
-      // background-color: black;
     }
     
     &.two {
@@ -46,7 +57,6 @@
   
     &.three {
       transform: rotate(45deg) translate(-8px, -8px);
-      // background-color: black;
     }
   }
 }
