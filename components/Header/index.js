@@ -9,7 +9,6 @@ function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const currentPath =  window && window.location.pathname;
 
-  // rebuild in a react-y way? (see Trello board for link)
   useEffect(() => {
     window.addEventListener('scroll', throttle(() => {
       if(window.scrollY > 70) {
