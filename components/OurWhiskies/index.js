@@ -1,5 +1,5 @@
 import React from 'react';
-import BannerWrap from './BannerWrap';
+import BannerWrap from '../BannerWrap';
 
 
 function OurWhiskies() {

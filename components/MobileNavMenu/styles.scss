@@ -14,15 +14,15 @@
   }
 
   & .link {
-    // negative margin takes links off the page so they are not visible/clickable when menu is closed
-    margin-top: -10%;
+    // negative margin moves links off the page so they are not visible/clickable when menu is closed
+    margin-top: -20%;
     color: whitesmoke;
     margin-bottom: 5%;
+    font-size: 2em;
     transition: 0.4s;
 
     &.show {
       margin-top: 0;
-      font-size: 2em;
     }
   }
 }
