@@ -15,7 +15,6 @@ function MobileHeader() {
   });
 
   useEffect(() => {
-    //if isScrolled === true & navState.showX ==== true remove isScrolled styles 
     window.addEventListener('scroll', throttle(() => {
       if(window.scrollY > 70) {
         setIsScrolled(true);
@@ -36,7 +35,7 @@ function MobileHeader() {
     <div>
       <div className={classnames(
         styles.header,
-        !navState.showX && isScrolled && styles.scrolled,
+        !navState.showX && isScrolled && styles.scrolled, //if menu is displayed, do not apply isScrolled styles
         navState.showMenu && styles.hide
         )}>
         <Link to='/' className='router-link'><h3 className={classnames(
@@ -49,19 +48,19 @@ function MobileHeader() {
           <div className={classnames(
             styles.bar,
             styles.one,
-            !navState.showX && isScrolled && styles.scrolled,
+            !navState.showX && isScrolled && styles.scrolled, //if menu is displayed, do not apply isScrolled styles
             navState.showX && styles.showX
           )}></div>
           <div className={classnames(
             styles.bar,
             styles.two,
-            !navState.showX && isScrolled && styles.scrolled,
+            !navState.showX && isScrolled && styles.scrolled, //if menu is displayed, do not apply isScrolled styles
             navState.showX && styles.showX
           )}></div>
           <div className={classnames(
             styles.bar,
             styles.three,
-            !navState.showX && isScrolled && styles.scrolled,
+            !navState.showX && isScrolled && styles.scrolled, //if menu is displayed, do not apply isScrolled styles
             navState.showX && styles.showX
           )}></div>
         </div>

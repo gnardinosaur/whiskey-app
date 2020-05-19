@@ -23,6 +23,7 @@
 
   h3 {
     opacity: 1;
+    text-transform: uppercase;
 
     &.hide {
       opacity: 0;
@@ -32,32 +33,33 @@
 
 .hamburger {
   display: inline-block;
-}
-
-.bar {
-  width: 35px;
-  height: 5px;
-  background-color:whitesmoke;
-  margin: 6px 0;
-  transition: 0.4s;
-
-  &.scrolled {
-    background-color: black;
-  }
-
-  &.showX {
-    
-    &.one {
-      transform: rotate(-45deg) translate(-9px, 6px);
-    }
-    
-    &.two {
-      opacity: 0;
+  
+  .bar {
+    width: 35px;
+    height: 5px;
+    background-color:whitesmoke;
+    margin: 6px 0;
+    transition: 0.4s;
+  
+    &.scrolled {
+      background-color: black;
     }
   
-    &.three {
-      transform: rotate(45deg) translate(-8px, -8px);
+    // rotate and hide hamburger spans 
+    &.showX {
+      
+      &.one {
+        transform: rotate(-45deg) translate(-9px, 6px);
+      }
+      
+      &.two {
+        opacity: 0;
+      }
+    
+      &.three {
+        transform: rotate(45deg) translate(-8px, -8px);
+      }
     }
   }
-}
+}  
 
