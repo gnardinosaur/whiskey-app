@@ -1,6 +1,7 @@
   const SCOPE = 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets';
 
   // initialize Google API
+  // 'cb' is 'submitForm' function from RateForm component and passed down until it's called by 'googleSignIn' function below
   export function initClient(cb) {
     gapi.load('client:auth2', () => authenticate(cb))
   };
@@ -19,8 +20,8 @@
   // sign-in using 0Auth with scopes so we can read/write sheet with GoogleSheets API -- log success or errors to console for debugging
   function googleSignIn(cb) {
     return gapi.auth2.getAuthInstance()
-      .signIn({scope: SCOPE})
-      .then(function() { console.log("Sign-in successful"); }, function(err) { console.error("Error signing in", err); })
+      .signIn({ scope: SCOPE })
+      .then(function() { console.log('sign-in successful'); }, function(err) { console.error('error signing in:', err); })
       .then(() => cb())
   };
 
@@ -44,17 +45,14 @@
     data.unshift(timestamp);
 
     return gapi.client.sheets.spreadsheets.values.append({
-      "spreadsheetId": process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID,
-      "key": process.env.REACT_APP_GOOGLE_SHEETS_API_KEY,
-      "range": 'test',
-      "valueInputOption": "RAW",
-      "resource": {
-        "values": [data]
+      'spreadsheetId': process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID,
+      'key': process.env.REACT_APP_GOOGLE_SHEETS_API_KEY,
+      'range': 'test',
+      'valueInputOption': 'RAW',
+      'resource': {
+        'values': [data]
       }
     })
-    .then(function(response) {
-      // Handle the results here (response.result containes the parsed response body).
-      console.log("Response", response);
-      },
-      function(err) { console.error("Execute error", err); });
+    .then(function(response) { return response}, function(err) { return err });
+      // function(err) { console.error('error:', err)
   }

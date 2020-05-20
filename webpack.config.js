@@ -16,7 +16,7 @@ module.exports = () => {
   }, {})
   
   return {
-    entry: './src/index.js',
+    entry: ['@babel/polyfill', './src/index.js'],
 
     output: {
       filename: 'main.[hash].js',
