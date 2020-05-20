@@ -33,14 +33,14 @@ const customStyles = {
   },
   rateAnotherButton: {
     backgroundColor: '#002F35',
-    // do not change button color on hover
+    // do not change color on hover
     '&:hover': {
       backgroundColor: '#002F35'
     }
   },
   submitButton: {
     backgroundColor: '#004A2F',
-    // do not change button color on hover
+    // do not change color on hover
     '&:hover': {
       backgroundColor: '#004A2F'
     },
@@ -88,21 +88,16 @@ function RateForm(props) {
   function validateFormInputs(e) {
     e.preventDefault();
     let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, {...errors});
-    let promise = new Promise((res, rej) => {
-      res(setErrors(inputErrors))
-    });
-    promise.then(() => {
-      // if inputErrors has any true values do not initiate Google client 
-      if(checkForTrueValues(inputErrors)) initClient(submitForm)      
-    });
+    setErrors(inputErrors);
+    // if inputErrors has any true values do not initiate Google client 
+    if(checkForTrueValues(inputErrors)) initClient(submitForm);      
   };
 
   // clean formData (function in googleAPI.js helper) & post inputs to Google sheet
-  function submitForm() {
-    let promise = new Promise((res, rej) => {
-      res(cleanFormData(formData))
-    })
-    promise.then(cleanData => postFormData(cleanData))
+  async function submitForm() {
+    let cleanData = await cleanFormData(formData);
+    let test = await postFormData(cleanData);
+    debugger;
   };
 
   function handleChange(e){
