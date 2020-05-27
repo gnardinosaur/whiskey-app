@@ -15,15 +15,17 @@ class App extends React.Component {
     submissionResults: {} // obj will either be be user submission data or google sheets error 
   };
 
-  showSubmission(payload) {
-    this.setState({ submissionResults: payload })
-      // this.props.history.push('/rate/submission'));
+  showSubmission = (payload) => {
+    this.setState({ 
+      submissionResults: payload 
+    },
+    this.props.history.push('/rate/submission'))
   };
 
   render() {
     return (
       <Switch>
-        {/* wrapped in GoogleSheets HOC to read sheet */}
+        {/* wrapped in GoogleSheets HOC so that we can read from Google sheet */}
         <GoogleSheetsProvider> 
           {window.innerWidth > 415? <Header /> : <MobileHeader />}
           <Route path='/rate/submission' exact render={() => <SubmissionResults results={this.state.submissionResults} />} />

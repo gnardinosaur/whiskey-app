@@ -1,0 +1,31 @@
+@mixin mobile {
+  @media (max-width: 414px) {
+    @content;
+  }
+}
+
+.results {
+  text-align: center;
+}
+
+.title {
+  margin-top: 5%;
+  font-size: 2.5em;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  @include mobile {
+    font-size: 1.5em;
+  }
+}
+
+.subData {
+  margin-bottom: 2%;
+  font-size: 2em;
+  text-transform: uppercase;
+
+  @include mobile {
+    font-size: 1em;
+  }
+}
+ 
