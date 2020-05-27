@@ -93,16 +93,28 @@ function RateForm(props) {
     if(checkForTrueValues(inputErrors)) initClient(submitForm);      
   };
 
-  // clean formData (function in googleAPI.js helper) & post inputs to Google sheet
+  // convert submission formData object into an array for use by GoogleSheets API (function lives in googleAPI.js helper) & post inputs to Google sheet
   async function submitForm() {
     let cleanData = await cleanFormData(formData);
-    let test = await postFormData(cleanData);
-    debugger;
+    let resp = await postFormData(cleanData);
+    if(resp.status = 200) {
+       // set state of Rate component (parent) with submitted form data
+      props.setForm({
+        showForm: false,
+        payload: formData
+      }) 
+    } else {
+      // set state of Rate component (parent) with error object
+      props.setForm({
+        showForm: false,
+        payload: resp
+      }) 
+    };
   };
 
   function handleChange(e){
     // if input has error, remove error for that input
-    if(errors[e.target.name]) setErrors({
+    if(errors[e.target.name]) setErrors({ 
       ...errors,
       [e.target.name]: false
     });

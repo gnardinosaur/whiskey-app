@@ -53,6 +53,7 @@
         'values': [data]
       }
     })
-    .then(function(response) { return response}, function(err) { return err });
-      // function(err) { console.error('error:', err)
+    .then(function(response) { return response }, 
+      function(err) { return err }
+    );
   }
