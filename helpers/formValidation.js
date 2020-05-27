@@ -22,10 +22,12 @@ export function validate(name, month, year, ratings, errors) {
 export function checkForTrueValues(object, hasNoInputErrors = true) {
   for(let key in object) {
     if(object[key] instanceof Array) {
-      checkForTrueValues(object[key], hasNoInputErrors)
+      // if any of the ratings arr values are 'true', set hasNoInputErrors in parent call to 'false' so that we can return this value to the RateForm component
+      hasNoInputErrors = checkForTrueValues(object[key], hasNoInputErrors)
     } else {
       if(object[key]) hasNoInputErrors = false;
     }
-  }
+  };
+  
   return hasNoInputErrors 
 }
