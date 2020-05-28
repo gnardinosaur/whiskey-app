@@ -1,13 +1,13 @@
 const path = require('path');
 const webpack = require('webpack');
-const dotenv = require('dotenv');
+const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 module.exports = () => {
-  const env = dotenv.config().parsed;
+  const env = new Dotenv();
   
   // reduce .env variables to an object and pass to DefinePlugin below
   const envKeys = Object.keys(env).reduce((prev, next) => {
@@ -91,6 +91,7 @@ module.exports = () => {
     },
 
     plugins: [
+      new Dotenv(),
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin(envKeys),
       new HtmlWebpackPlugin({
