@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { withGoogleSheets } from 'react-db-google-sheets';
 import styles from './styles.scss';
 
 function TopTen(props) {
@@ -7,12 +6,21 @@ function TopTen(props) {
 
   // read top ten whiskies from Google sheet --> top ten links and images are handled within the Google sheet
   useEffect(() => {
-    setTopTen(props.db['Our whiskies'].slice(0, 10))
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Our whiskies!A1:E11`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`,
+        'Accept': 'application/json'
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => console.log(data))
   }, []);
 
   return (
     <div className={styles.topTenContainer}>
-      {topTen.map(el =>
+      testing.
+      {/* {topTen.map(el =>
         <div className={styles.topTenItem} key={el.Whiskey}>
           <a href={el.Link} target='_blank'>
             <div className={styles.topTenCard}>
@@ -25,9 +33,9 @@ function TopTen(props) {
               </div> 
             </div>
           </a>
-        </div>)}
+        </div>)} */}
     </div>
   )
 };
 
-export default withGoogleSheets('Our whiskies')(TopTen);
+export default TopTen;

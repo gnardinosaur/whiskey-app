@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.global.scss';
 import { Switch, Route } from 'react-router-dom';
-import GoogleSheetsProvider from 'react-db-google-sheets';
 import Header from './components/Header/index';
 import MobileHeader from './components/MobileHeader/index';
 import Home from './components/Home/index';
@@ -25,14 +24,11 @@ class App extends React.Component {
   render() {
     return (
       <Switch>
-        {/* wrapped in GoogleSheets HOC so that we can read from Google sheet */}
-        <GoogleSheetsProvider> 
-          {window.innerWidth > 415? <Header /> : <MobileHeader />}
-          <Route path='/rate/submission' exact render={() => <SubmissionResults results={this.state.submissionResults} />} />
-          <Route path='/rate' exact render={() => <Rate showSubmission={this.showSubmission} />} />
-          <Route path='/our-whiskies' exact component={OurWhiskies} />
-          <Route path='/' exact component={Home} />
-        </GoogleSheetsProvider>
+        {window.innerWidth > 415? <Header /> : <MobileHeader />}
+        <Route path='/rate/submission' exact render={() => <SubmissionResults results={this.state.submissionResults} />} />
+        <Route path='/rate' exact render={() => <Rate showSubmission={this.showSubmission} />} />
+        <Route path='/our-whiskies' exact component={OurWhiskies} />
+        <Route path='/' exact component={Home} />
       </Switch>
     );
   }
