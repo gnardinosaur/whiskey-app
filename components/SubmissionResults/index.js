@@ -10,6 +10,7 @@ function SubmissionResults(props) {
     setResults(props.results);
   }, []);
 
+  // used to render null on first load of component since results state will not yet be set 
   let ratings = results.ratings === undefined ? 
     null 
     :
