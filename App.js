@@ -6,7 +6,7 @@ import MobileHeader from './components/MobileHeader/index';
 import Home from './components/Home/index';
 import Rate from './components/Rate/index';
 import SubmissionResults from './components/SubmissionResults/index';
-import OurWhiskies from './components/OurWhiskies';
+import OurWhiskies from './components/OurWhiskies/index';
 
 class App extends React.Component {
 
