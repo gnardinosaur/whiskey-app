@@ -18,8 +18,8 @@ function Home(props) {
   const { classes } = props 
 
   console.log(process.env.NODE_ENV)
-  console.log(process.env.REACT_APP_GOOGLE_SHEETS_API_KEY)
-  console.log(process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID)
+  console.log(REACT_APP_GOOGLE_SHEETS_API_KEY)
+  console.log(REACT_APP_GOOGLE_SHEETS_DOC_ID)
 
   return (
     <div>
