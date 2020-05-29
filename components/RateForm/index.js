@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styles from './styles.scss';
 import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import { withGoogleSheets } from 'react-db-google-sheets';
 import RateInput from '../RateInput/index';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -71,10 +70,17 @@ function RateForm(props) {
 
   // set selects and pull member name data from GoogleSheet
   useEffect(() => {
-    setSelectData({
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Members!A2:A26?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => setSelectData({
       ...selectData,
-      names: props.db.Members
-    });
+      names: data.values
+    }))
   }, []);
 
   // using this state to control form selects and inputs 
@@ -218,6 +224,6 @@ function RateForm(props) {
   )
 };
 
-export default withGoogleSheets('Members')(withStyles(customStyles)(RateForm));
+export default withStyles(customStyles)(RateForm);
 
 
