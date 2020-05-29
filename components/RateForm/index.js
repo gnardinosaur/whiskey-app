@@ -225,5 +225,3 @@ function RateForm(props) {
 };
 
 export default withStyles(customStyles)(RateForm);
-
-
