@@ -1,6 +1,9 @@
 const fetch = require('node-fetch');
 
-const { REACT_APP_GOOGLE_SHEETS_API_KEY, REACT_APP_GOOGLE_CLIENT_ID, REACT_APP_GOOGLE_SHEETS_DOC_ID } = process.env;
+const REACT_APP_GOOGLE_SHEETS_API_KEY = process.env.REACT_APP_GOOGLE_SHEETS_API_KEY; 
+const REACT_APP_GOOGLE_SHEETS_DOC_ID = process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID;
+const REACT_APP_GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+
 
 exports.handler = async (event, context) => {
   try{
