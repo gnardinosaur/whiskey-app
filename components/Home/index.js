@@ -17,6 +17,8 @@ function Home(props) {
   // 'classes' object contains customStyles css 
   const { classes } = props 
 
+  console.log(process.env.NODE_ENV)
+
   return (
     <div>
       <div className={styles.homeTop}>
