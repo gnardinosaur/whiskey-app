@@ -16,6 +16,8 @@ function TopTen() {
     .then(data => setTopTen(data.values))
   }, []);
 
+  console.log(process.env.NODE_ENV)
+
   return (
     <div className={styles.topTenContainer}>
       {topTen.map(el =>
