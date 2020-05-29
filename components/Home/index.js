@@ -33,7 +33,7 @@ function Home(props) {
       </div>
       <div className={styles.homeBottom}>
         <p>Our Top 10</p>
-        <TopTen />
+        {/* <TopTen /> */}
       </div>
     </div>
   )
