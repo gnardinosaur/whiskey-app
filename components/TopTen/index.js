@@ -16,26 +16,9 @@ function TopTen() {
     .then(data => setTopTen(data.values))
   }, []);
 
-  let test = topTen ? topTen.map(el =>
-    <div className={styles.topTenItem} key={el[0]}>
-      <a href={el[4]} target='_blank'>
-        <div className={styles.topTenCard}>
-          <img src={el[3]} alt={el[1]}/>
-          <div className={styles.topTenCardMiddle}>
-            <div>#{el[0]}</div>
-            <br />
-            <div>{el[1]}</div>
-            <div className={styles.themeText}>{el[2]}</div>
-          </div> 
-        </div>
-      </a>
-    </div>
-  ) : null
-
   return (
     <div className={styles.topTenContainer}>
-      {test}
-      {/* {topTen.map(el =>
+      {topTen.map(el =>
         <div className={styles.topTenItem} key={el[0]}>
           <a href={el[4]} target='_blank'>
             <div className={styles.topTenCard}>
@@ -49,7 +32,7 @@ function TopTen() {
             </div>
           </a>
         </div>
-      )} */}
+      )}
     </div>
   )
 };
