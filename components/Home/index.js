@@ -17,10 +17,6 @@ function Home(props) {
   // 'classes' object contains customStyles css 
   const { classes } = props 
 
-  console.log(process.env.NODE_ENV)
-  console.log(process.env.REACT_APP_GOOGLE_SHEETS_API_KEY);
-  console.log(process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID);
-
   return (
     <div>
       <div className={styles.homeTop}>
@@ -37,7 +33,7 @@ function Home(props) {
       </div>
       <div className={styles.homeBottom}>
         <p>Our Top 10</p>
-        {/* <TopTen /> */}
+        <TopTen />
       </div>
     </div>
   )
