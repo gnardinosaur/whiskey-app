@@ -18,11 +18,8 @@ function Home(props) {
   const { classes } = props 
 
   console.log(process.env.NODE_ENV)
-  let api = process.env.NODE_ENV === 'production' ? REACT_APP_GOOGLE_SHEETS_API_KEY : process.env.REACT_APP_GOOGLE_SHEETS_API_KEY;
-  console.log(api);
-  let doc = process.env.NODE_ENV === 'production' ? 'doc var is in production' : process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID;
-  console.log('doc', doc)
-  
+  console.log(process.env.REACT_APP_GOOGLE_SHEETS_API_KEY);
+  console.log(process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID);
 
   return (
     <div>
