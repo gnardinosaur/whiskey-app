@@ -43,7 +43,6 @@
     "googleapis": "^39.2.0",
     "lodash": "^4.17.15",
     "react": "^16.13.0",
-    "react-db-google-sheets": "^2.0.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2"
   }
