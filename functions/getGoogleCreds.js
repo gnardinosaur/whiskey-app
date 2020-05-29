@@ -11,10 +11,10 @@ exports.handler = async (event, context) => {
      */
     const response = await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Our whiskies!A2:E11?key=${REACT_APP_GOOGLE_SHEETS_API_KEY}`);
     const data = await response.json();
-    console.log({
+    return {
       statusCode: 200,
       body: JSON.stringify(data)
-    });
+    };
   } catch (err) {
     return {
       statusCode: 500,
