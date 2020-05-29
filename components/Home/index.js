@@ -31,10 +31,10 @@ function Home(props) {
           </div>
         </div>
       </div>
-      {/* <div className={styles.homeBottom}>
+      <div className={styles.homeBottom}>
         <p>Our Top 10</p>
         <TopTen />
-      </div> */}
+      </div>
     </div>
   )
 };
