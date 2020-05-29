@@ -77,7 +77,7 @@ function RateForm(props) {
       }
     })
     .then(resp => resp.json())
-    .then(data => setSelectData({
+    .then(data =>   setSelectData({
       ...selectData,
       names: data.values
     }))
@@ -160,7 +160,7 @@ function RateForm(props) {
   };
 
   // build members select
-  let nameSelect = selectData.names.map(el => <MenuItem key={el.Members} value={el.Members}>{el.Members}</MenuItem>)
+  let nameSelect = selectData.names.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
 
   // build month select
   let monthSelect = selectData.months.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
