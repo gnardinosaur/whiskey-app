@@ -97,7 +97,11 @@ module.exports = () => {
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin(envKeys),
       new HtmlWebpackPlugin({
-        template: './src/index.template.html'
+        template: './src/index.template.html',
+        favicon: './public/favicon.ico'
+      }),
+      new HtmlWebpackPlugin({
+        template: './src/_redirects',
       }),
       new MiniCssExtractPlugin({
         filename: isDevelopment ? '[name].css' : '[name].[hash].css',
