@@ -100,9 +100,6 @@ module.exports = () => {
         template: './src/index.template.html',
         favicon: './public/favicon.ico'
       }),
-      new HtmlWebpackPlugin({
-        template: './src/_redirects',
-      }),
       new MiniCssExtractPlugin({
         filename: isDevelopment ? '[name].css' : '[name].[hash].css',
         chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
