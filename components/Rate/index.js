@@ -23,7 +23,7 @@ function Rate(props) {
       <p>Whiskey ratings</p>
       <p className={styles.smallText}>
         Access full ratings
-        {/* <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_CLIENT_ID}/edit#gid=1971787420`} target='_blank'>here</a> */}
+        <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_CLIENT_ID}/edit#gid=1971787420`} target='_blank'>here</a>
       </p>
       <RateForm setForm={setForm} />
     </div>
