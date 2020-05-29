@@ -24,6 +24,10 @@ $transition-time: .3s;
     margin: 0.5rem 0;
     font-size: 1.75rem;
     transition: $transition-time;
+    
+    &:hover{
+      color: scale-color(black, $lightness: +25%);
+    }
   }
 
   &.scrolled {
@@ -35,6 +39,10 @@ $transition-time: .3s;
     h1 {
       color: black;
       font-size: 1.5rem;
+
+      &:hover{
+        color: scale-color(whitesmoke, $lightness: -25%);
+      }
     }
   }
 
