@@ -12,20 +12,27 @@
   margin-top: 5%;
   font-size: 2.5em;
   text-transform: uppercase;
+  text-decoration: underline;
   font-weight: bold;
 
   @include mobile {
     font-size: 1.5em;
   }
 }
-
+  
 .subData {
   margin-bottom: 2%;
   font-size: 2em;
   text-transform: uppercase;
 
+  span {
+    font-style: italic;
+    background: linear-gradient(to top, #84e851 50%, transparent 50%);
+  }
+
   @include mobile {
     font-size: 1em;
   }
 }
+
  
