@@ -10,15 +10,20 @@ function Header() {
   const currentPath =  window && window.location.pathname;
 
   useEffect(() => {
-    window.addEventListener('scroll', throttle(() => {
+    window.addEventListener('scroll', listener());
+    return () => window.removeEventListener('scroll', listener()); // remove event listener when component is unmounted
+  }, []);
+
+  function listener() {
+    return throttle(() => {
       if(window.scrollY > 70) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
-    }, 100));
-  }, []);
-  
+    }, 100);
+  };
+
   return (
     <div className={classnames(
       styles.header,
