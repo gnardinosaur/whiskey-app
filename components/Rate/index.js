@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Layout from '../Layout/index';
 import BannerWrap from '../BannerWrap/index';
 import RateForm from '../RateForm/index';
 import styles from './styles.scss';
@@ -19,13 +20,15 @@ function Rate(props) {
 
   return (  
     <div className={styles.rate}>
-      <BannerWrap />
-      <p>Whiskey ratings</p>
-      <p className={styles.smallText}>
-        Access full ratings
-        <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/edit#gid=1971787420`} target='_blank'>here</a>
-      </p>
-      <RateForm setForm={setForm} />
+      <Layout>
+        <BannerWrap />
+        <p>Whiskey ratings</p>
+        <p className={styles.smallText}>
+          Access full ratings
+          <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/edit#gid=1971787420`} target='_blank'>here</a>
+        </p>
+        <RateForm setForm={setForm} />
+      </Layout>
     </div>
   )
 };
