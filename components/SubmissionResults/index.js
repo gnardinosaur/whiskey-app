@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../Layout/index'
-import BannerWrap from '../BannerWrap/index';
 import styles from './styles.scss';
 
 function SubmissionResults(props) {
-
   const [results, setResults] = useState({});
 
   useEffect(() => {
@@ -16,21 +13,16 @@ function SubmissionResults(props) {
     null 
     :
     results.ratings.map((rating, idx) => {
-      return <p className={styles.subData} key={rating + idx}>Whiskey #{idx + 1} - {rating}</p>
+      return <p className={styles.subData} key={rating + idx}>Whiskey #{idx + 1} - <span>{rating}</span></p>
     })
 
   return (
-    <div>
-      <Layout>
-        <BannerWrap />
-        <div className={styles.results}>
-          <p className={styles.title}>Your Submission</p>
-          <p className={styles.subData}>Your Name - {results.name}</p>
-          <p className={styles.subData}>Month - {results.month}</p>
-          <p className={styles.subData}>Year - {results.year}</p>
-          {ratings}
-        </div>
-      </Layout>
+    <div className={styles.results}>
+      <p className={styles.title}>Your Submission</p>
+      <p className={styles.subData}>Your Name - {<span>{results.name}</span>}</p>
+      <p className={styles.subData}>Month - {<span>{results.month}</span>}</p>
+      <p className={styles.subData}>Year - {<span>{results.year}</span>}</p>
+      {ratings}
     </div>
   )
 };
