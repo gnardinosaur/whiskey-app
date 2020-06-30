@@ -1,0 +1,60 @@
+// standardize media query with mixin and then use the query inline
+@mixin mobile {
+  @media (max-width: 414px) {
+    @content;
+  }
+}
+
+.textContainer {
+  text-align: center;
+  
+  h3 {
+    text-transform: uppercase;
+    margin-bottom: 1%;
+    font-weight: bold;
+    font-size: 2.5em;
+
+    @include mobile {
+      font-size: 1.5em;
+    }
+  }
+
+  h5 {
+    text-transform: uppercase;
+    margin-bottom: 3%;
+    font-size: 1em;
+    
+    @include mobile {
+      font-size: .75em;
+    }
+  }
+
+  a {
+    margin-left: .25em;
+  }
+}
+
+.tableContainer {
+  margin: 3% auto 0 auto;
+  max-width: 600px;
+}
+
+table {
+
+  &.tableStyles {
+    border-collapse: collapse;
+  }
+
+}
+
+th {
+
+  &.stickyHeader {
+    background-color: #d3d3d3; 
+    color: black;
+    text-transform: uppercase;
+    font-weight: 600;
+    border: 1px solid black;
+  }
+
+}
