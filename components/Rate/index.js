@@ -16,8 +16,8 @@ function Rate() {
     <div className={styles.rate}>
       <Layout>
         <BannerWrap />
-        <h3 >Whiskey ratings</h3>
-        <h5 className={styles.smallText}>
+        <h3>Whiskey ratings</h3>
+        <h5>
           Access full ratings
           <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/edit#gid=1971787420`} target='_blank'>here</a>
         </h5>

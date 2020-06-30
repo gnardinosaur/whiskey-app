@@ -1,14 +1,50 @@
 import React from 'react';
+import styles from './styles.scss';
 import Layout from '../Layout/index';
 import BannerWrap from '../BannerWrap';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import { TABLEHEADERS } from '../../constants/tableHeaders';
 
 function OurWhiskies() {
+
+  let headers = TABLEHEADERS.map((header) => (
+    <TableCell
+      key={header.id}
+      style={{ minWidth: header.minWidth }}
+      className={styles.stickyHeader}
+    >
+      {header.label}
+    </TableCell>
+  ));
+
+  let rows = 
+
   return (
     <div>
       <Layout>
         <BannerWrap />
-        <div style={{ marginTop: '10%', textAlign: 'center' }}>
-          table of some sort - ask DC 
+        <div className={styles.textContainer}>
+          <h3>Our Whiskies</h3>
+          <h5>
+            Access full ratings
+            <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/edit#gid=1971787420`} target='_blank'>here</a>
+          </h5>
+        </div>
+        <div className={styles.tableContainer}>
+          <Table stickyHeader className={styles.tableStyles}>
+            <TableHead>
+              <TableRow>
+                {headers}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows}
+            </TableBody>
+          </Table>
         </div>
       </Layout>
     </div>
