@@ -37,6 +37,10 @@
 .tableContainer {
   margin: 3% auto 0 auto;
   max-width: 600px;
+  
+  & :last-child {
+    margin-bottom: 10%
+  }
 }
 
 table {

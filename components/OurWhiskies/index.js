@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles.scss';
 import Layout from '../Layout/index';
 import BannerWrap from '../BannerWrap';
@@ -10,6 +10,29 @@ import TableCell from '@material-ui/core/TableCell';
 import { TABLEHEADERS } from '../../constants/tableHeaders';
 
 function OurWhiskies() {
+  const [whiskies, setWhiskies] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Our whiskies!A:A?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => fetchRows(data.values.length)) //grab the number of rows and use that in the second fetch query so that it's dynamic
+  }, []);
+
+  function fetchRows(val) {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Our whiskies!A2:C${val}?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => setWhiskies(data.values))
+  };
 
   let headers = TABLEHEADERS.map((header) => (
     <TableCell
@@ -21,7 +44,24 @@ function OurWhiskies() {
     </TableCell>
   ));
 
-  let rows = 
+  let rows = whiskies.map((whiskey) => (
+    <TableRow hover key={whiskey[0]}>
+      <TableCell 
+        key={whiskey[0]}
+        style={{ backgroundColor: 'green' }}
+      >
+        {whiskey[0]}
+      </TableCell>
+      <TableCell key={whiskey[1]}>
+        {whiskey[1]}
+      </TableCell>
+      <TableCell key={whiskey[2]}>
+        {whiskey[2]}
+      </TableCell>
+    </TableRow>
+  ));
+
+  console.log(whiskies)
 
   return (
     <div>

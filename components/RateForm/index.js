@@ -70,7 +70,7 @@ function RateForm(props) {
 
   // set selects and pull member name data from GoogleSheet
   useEffect(() => {
-    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Members!A2:A26?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Members!A2:A31?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
