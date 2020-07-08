@@ -38,8 +38,11 @@
   margin: 3% auto 0 auto;
   max-width: 600px;
   
-  & :last-child {
-    margin-bottom: 10%
+  &:last-child {
+    margin-bottom: 10%;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: black
   }
 }
 
@@ -47,6 +50,8 @@ table {
 
   &.tableStyles {
     border-collapse: collapse;
+    border: 1px solid black;
+    background-image: linear-gradient(rgb(87,187,138),rgb(250,213,103),rgb(230,124,115));
   }
 
 }

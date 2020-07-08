@@ -48,14 +48,18 @@ function OurWhiskies() {
     <TableRow hover key={whiskey[0]}>
       <TableCell 
         key={whiskey[0]}
-        style={{ backgroundColor: 'green' }}
+        align='center'
       >
         {whiskey[0]}
       </TableCell>
-      <TableCell key={whiskey[1]}>
+      <TableCell key={whiskey[1]}
+        style={{ backgroundColor: 'white' }}
+      >
         {whiskey[1]}
       </TableCell>
-      <TableCell key={whiskey[2]}>
+      <TableCell key={whiskey[2]}
+        style={{ backgroundColor: 'white' }}
+      >
         {whiskey[2]}
       </TableCell>
     </TableRow>
