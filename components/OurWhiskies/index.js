@@ -61,8 +61,6 @@ function OurWhiskies() {
     </TableRow>
   ));
 
-  console.log(whiskies)
-
   return (
     <div>
       <Layout>

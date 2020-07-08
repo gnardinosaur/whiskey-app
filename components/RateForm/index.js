@@ -70,7 +70,18 @@ function RateForm(props) {
 
   // set selects and pull member name data from GoogleSheet
   useEffect(() => {
-    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Members!A2:A31?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Members!A:A?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => fetchMembers(data.values.length)) //grab the number of rows and use that in the second fetch query so that it's dynamic
+  }, []);
+
+  function fetchRows(val) {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Our whiskies!A2:A${val}?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
@@ -81,7 +92,7 @@ function RateForm(props) {
       ...selectData,
       names: data.values
     }))
-  }, []);
+  };
 
   // using this state to control form selects and inputs 
   const [formData, setFormData] = useState({
