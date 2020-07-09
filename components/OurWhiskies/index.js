@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles.scss';
+import classnames from 'classnames';
 import Layout from '../Layout/index';
 import BannerWrap from '../BannerWrap';
 import Table from '@material-ui/core/Table';
@@ -38,17 +39,23 @@ function OurWhiskies() {
     <TableCell
       key={header.id}
       style={{ minWidth: header.minWidth }}
-      className={styles.stickyHeader}
+      className={classnames(
+        styles.stickyHeader,
+        header.label === 'Rank' && styles.rank
+      )}
     >
       {header.label}
     </TableCell>
   ));
 
   let rows = whiskies.map((whiskey) => (
-    <TableRow hover key={whiskey[0]}>
+    <TableRow 
+      key={whiskey[0]}
+    >
       <TableCell 
         key={whiskey[0]}
         align='center'
+        style={{ borderRight: '1px solid black' }}
       >
         {whiskey[0]}
       </TableCell>
@@ -77,7 +84,7 @@ function OurWhiskies() {
           </h5>
         </div>
         <div className={styles.tableContainer}>
-          <Table stickyHeader className={styles.tableStyles}>
+          <Table className={styles.tableStyles}>
             <TableHead>
               <TableRow>
                 {headers}

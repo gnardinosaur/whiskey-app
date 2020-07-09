@@ -53,7 +53,6 @@ table {
     border: 1px solid black;
     background-image: linear-gradient(rgb(87,187,138),rgb(250,213,103),rgb(230,124,115));
   }
-
 }
 
 th {
@@ -64,6 +63,10 @@ th {
     text-transform: uppercase;
     font-weight: 600;
     border: 1px solid black;
-  }
 
+    &.rank {
+      text-align: center;
+    }
+  }
 }
+
