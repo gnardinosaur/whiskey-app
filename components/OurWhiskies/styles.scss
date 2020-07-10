@@ -5,6 +5,12 @@
   }
 }
 
+@mixin desktop {
+  @media (min-width: 450px) {
+    @content;
+  }
+}
+
 .textContainer {
   text-align: center;
   
@@ -36,7 +42,11 @@
 
 .tableContainer {
   margin: 3% auto 0 auto;
-  max-width: 600px;
+  max-width: 90%;
+
+  @include desktop {
+    max-width: 800px;
+  }
   
   &:last-child {
     margin-bottom: 10%;
