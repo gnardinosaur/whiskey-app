@@ -38,7 +38,6 @@ function OurWhiskies() {
   let headers = TABLEHEADERS.map((header) => (
     <TableCell
       key={header.id}
-      style={{ minWidth: header.minWidth }}
       className={classnames(
         styles.stickyHeader,
         header.label === 'Rank' && styles.rank

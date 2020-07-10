@@ -80,8 +80,8 @@ function RateForm(props) {
     .then(data => fetchMembers(data.values.length)) //grab the number of rows and use that in the second fetch query so that it's dynamic
   }, []);
 
-  function fetchRows(val) {
-    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Our whiskies!A2:A${val}?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
+  function fetchMembers(val) {
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Members!A2:A${val}?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json'
