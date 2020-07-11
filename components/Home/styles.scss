@@ -35,6 +35,14 @@
   text-indent: 3%;
 }
 
+button {
+  &.whiskeyButton {
+    margin-top: 3%;
+    background-color: whitesmoke;
+    color: black
+  }
+}
+
 .homeBottom {
   background-color: white;
   width: 75%;
