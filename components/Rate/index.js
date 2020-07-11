@@ -13,15 +13,17 @@ function Rate() {
   });
 
   return (  
-    <div className={styles.rate}>
+    <div>
       <Layout>
         <BannerWrap />
-        <h3>Whiskey ratings</h3>
-        <h5>
-          Access full ratings
-          <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/edit#gid=1971787420`} target='_blank'>here</a>
-        </h5>
-        {form.showForm ? <RateForm setForm={setForm} /> : <SubmissionResults results={form.payload} />}
+        <div className={styles.rate}>
+          <h3>Whiskey ratings</h3>
+          <h5>
+            Access full ratings
+            <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/edit#gid=1971787420`} target='_blank'>here</a>
+          </h5>
+          {form.showForm ? <RateForm setForm={setForm} /> : <SubmissionResults results={form.payload} />}
+        </div>
       </Layout>
     </div>
   )
