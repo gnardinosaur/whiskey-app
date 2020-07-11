@@ -1,3 +1,10 @@
+// standardize media query with mixin and then use the query inline
+@mixin mobile {
+  @media (max-width: 414px) {
+    @content;
+  }
+}
+
 .rateFormContainer {
   text-align: center;
   
@@ -6,3 +13,47 @@
   }
 }
 
+.select {
+  
+  & .rateFormField {
+    width: 30%;
+    margin-bottom: 3%;
+      
+    @include mobile {
+      width: 50%;
+      margin-bottom: 5%;
+    }
+  }
+}
+
+button {
+  
+  &.rateAnotherButton {
+    background-color: #002F35;
+    color: whitesmoke;
+    margin-bottom: 1%;
+    width: 30%;
+
+    // do not change color on hover
+    &:hover {
+      background-color: #002F35
+    }
+  }
+
+  &.submitButton {
+    background-color: #004A2F;
+    color: whitesmoke;
+    margin-bottom: 1%;
+    width: 30%;
+
+    // do not change color on hover
+    &:hover {
+      background-color: #004A2F;
+    }
+  }
+
+  @include mobile {
+    width: 65%;
+    margin-bottom: 3%;
+  }
+}

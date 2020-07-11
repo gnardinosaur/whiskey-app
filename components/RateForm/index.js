@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import styles from './styles.scss';
-import classnames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
 import RateInput from '../RateInput/index';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -11,44 +9,7 @@ import Button from '@material-ui/core/Button';
 import { validate, checkForTrueValues } from '../../helpers/formValidation';
 import { initClient, cleanFormData, postFormData } from '../../helpers/googleAPI';
 
-// custom css for Material UI components 
-const customStyles = {
-  rateFormField: {
-    width: '30%',
-    marginBottom: '3%',
-    '@media (max-width: 414px)': {
-      width: '50%',
-      marginBottom: '5%',
-    }
-  },
-  rateButton: {
-    color: 'whitesmoke',
-    marginBottom: '1%',
-    width: '30%',
-    '@media (max-width: 414px)': {
-      width: '65%',
-      marginBottom: '3%'
-    }
-  },
-  rateAnotherButton: {
-    backgroundColor: '#002F35',
-    // do not change color on hover
-    '&:hover': {
-      backgroundColor: '#002F35'
-    }
-  },
-  submitButton: {
-    backgroundColor: '#004A2F',
-    // do not change color on hover
-    '&:hover': {
-      backgroundColor: '#004A2F'
-    },
-  }
-}
-
 function RateForm(props) {
-  // 'classes' object contains customStyles css 
-  const { classes } = props 
 
   // using this state to render correct number of whiskey rating inputs
   const [formInputs, setFormInputs] = useState([0, 1, 2]);
@@ -103,6 +64,7 @@ function RateForm(props) {
   });
 
   function validateFormInputs(e) {
+    console.log('yep')
     e.preventDefault();
     let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, {...errors});
     setErrors(inputErrors);
@@ -180,54 +142,44 @@ function RateForm(props) {
   let yearSelect = selectData.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
 
   // render correct number of whiskey rating inputs
-  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]} css={classes.rateFormField}></RateInput>)
+  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]} css={styles.rateFormField}></RateInput>)
   
   return (
     <form className={styles.rateFormContainer} onSubmit={validateFormInputs}>
-      <div>
-        <FormControl required className={classes.rateFormField}>
+      <div className={styles.select}>
+        <FormControl required className={styles.rateFormField}>
           <InputLabel>Name</InputLabel>
           <Select error={errors.name ? true : false} name='name' value={formData.name} onChange={handleChange}>
             {nameSelect}
           </Select>
         </FormControl>
       </div>
-      <div>
-        <FormControl required className={classes.rateFormField}>
+      <div className={styles.select}>
+        <FormControl required className={styles.rateFormField}>
           <InputLabel>Month</InputLabel>
           <Select error={errors.month ? true : false} name='month' value={formData.month} onChange={handleChange}>
             {monthSelect}
           </Select>
         </FormControl>
       </div>
-      <div>
-        <FormControl required className={classes.rateFormField}>
+      <div className={styles.select}>
+        <FormControl required className={styles.rateFormField}>
           <InputLabel>Year</InputLabel>
           <Select error={errors.year ? true : false} name='year' value={formData.year} onChange={handleChange}>
             {yearSelect}
           </Select>
         </FormControl>
       </div>
-      {ratingInputs}
+      <div className={styles.select}>
+        {ratingInputs}
+      </div>
       <div>
-        <Button className={classnames(
-          classes.rateButton,
-          classes.rateAnotherButton
-          )} 
-          variant='contained'
-          onClick={addInput}
-        >
+        <Button className={styles.rateAnotherButton} onClick={addInput}>
           Rate Another Whiskey
         </Button>
       </div>
       <div>
-        <Button className={classnames(
-          classes.rateButton,
-          classes.submitButton
-          )}
-          variant='contained'
-          type='submit'
-        >
+        <Button className={styles.submitButton} type='submit'>
           Submit
         </Button>
       </div>
@@ -235,4 +187,4 @@ function RateForm(props) {
   )
 };
 
-export default withStyles(customStyles)(RateForm);
+export default RateForm;
