@@ -26,7 +26,7 @@ module.exports = () => {
 
     mode: isDevelopment ? 'development' : 'production',
 
-    devtool: 'eval-source-map',
+    devtool: isDevelopment ? 'eval-source-map' : false,
 
     devServer: {
       contentBase: './dist',
