@@ -20,7 +20,7 @@
     margin-bottom: 3%;
       
     @include mobile {
-      width: 50%;
+      width: 65%;
       margin-bottom: 5%;
     }
   }
@@ -38,6 +38,11 @@ button {
     &:hover {
       background-color: #002F35
     }
+    
+    @include mobile {
+      width: 65%;
+      margin-bottom: 3%;
+    }
   }
 
   &.submitButton {
@@ -50,10 +55,10 @@ button {
     &:hover {
       background-color: #004A2F;
     }
-  }
 
-  @include mobile {
-    width: 65%;
-    margin-bottom: 3%;
+    @include mobile {
+      width: 65%;
+      margin-bottom: 3%;
+    }
   }
 }

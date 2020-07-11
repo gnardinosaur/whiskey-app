@@ -64,7 +64,6 @@ function RateForm(props) {
   });
 
   function validateFormInputs(e) {
-    console.log('yep')
     e.preventDefault();
     let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, {...errors});
     setErrors(inputErrors);
@@ -147,7 +146,7 @@ function RateForm(props) {
   return (
     <form className={styles.rateFormContainer} onSubmit={validateFormInputs}>
       <div className={styles.select}>
-        <FormControl required className={styles.rateFormField}>
+        <FormControl className={styles.rateFormField}>
           <InputLabel>Name</InputLabel>
           <Select error={errors.name ? true : false} name='name' value={formData.name} onChange={handleChange}>
             {nameSelect}
@@ -155,7 +154,7 @@ function RateForm(props) {
         </FormControl>
       </div>
       <div className={styles.select}>
-        <FormControl required className={styles.rateFormField}>
+        <FormControl className={styles.rateFormField}>
           <InputLabel>Month</InputLabel>
           <Select error={errors.month ? true : false} name='month' value={formData.month} onChange={handleChange}>
             {monthSelect}
@@ -163,7 +162,7 @@ function RateForm(props) {
         </FormControl>
       </div>
       <div className={styles.select}>
-        <FormControl required className={styles.rateFormField}>
+        <FormControl className={styles.rateFormField}>
           <InputLabel>Year</InputLabel>
           <Select error={errors.year ? true : false} name='year' value={formData.year} onChange={handleChange}>
             {yearSelect}
