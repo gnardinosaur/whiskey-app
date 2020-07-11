@@ -5,6 +5,7 @@
   }
 }
 
+// dictate table width --> larger table if screen is wider than 450px
 @mixin desktop {
   @media (min-width: 450px) {
     @content;
