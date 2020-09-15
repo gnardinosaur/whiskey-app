@@ -21,9 +21,10 @@
   background-color: #d3d3d3;
   display: flex;
   align-items: center;
+  justify-content: center; /* center content horizontally on large format screens */
 }
 
-/* div overlay on each item so we can stretch image inside of it*/
+/* div overlay on each item so we can stretch image inside of it */
 .topTenCard {
   overflow: hidden;
   position: relative;
