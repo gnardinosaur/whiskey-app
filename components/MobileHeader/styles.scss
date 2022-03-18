@@ -4,13 +4,13 @@
   align-items: center;
   margin: 0 1em 0 1em;
   position: fixed;
-  color: white;
+  color: whitesmoke;
   top: 0;
   left: 0;
   right: 0;
 
   &.scrolled {
-    background-color: white;
+    background-color: whitesmoke;
     color: black;
     margin: 0;
     padding: 0 1em;
@@ -37,7 +37,7 @@
   .bar {
     width: 35px;
     height: 5px;
-    background-color:white;
+    background-color:whitesmoke;
     margin: 6px 0;
     transition: 0.4s;
   

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { LINKS } from '../../constants/links';
+import { LINKS } from '../../constants.js';
 import styles from './styles.scss';
 import classnames from 'classnames';
 

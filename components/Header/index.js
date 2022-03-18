@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { LINKS } from '../../constants/links';
-import { throttle } from 'lodash';
+import { LINKS } from '../../constants.js';
+import throttle from 'lodash/throttle';
 import classnames from 'classnames';
 import styles from './styles.scss';
 
@@ -10,19 +10,19 @@ function Header() {
   const currentPath =  window && window.location.pathname;
 
   useEffect(() => {
+    function listener() {
+      return throttle(() => {
+        if(window.scrollY > 70) {
+          setIsScrolled(true);
+        } else {
+          setIsScrolled(false);
+        }
+      }, 100);
+    };
+    
     window.addEventListener('scroll', listener());
     return () => window.removeEventListener('scroll', listener()); // remove event listener when component is unmounted
   }, []);
-
-  function listener() {
-    return throttle(() => {
-      if(window.scrollY > 70) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    }, 100);
-  };
 
   return (
     <div className={classnames(
@@ -30,7 +30,7 @@ function Header() {
       isScrolled && styles.scrolled
     )}>
       <Link to='/' className='router-link'><h1>Whiskey Club NYC</h1></Link>
-      <div>
+      <div className={styles.pageLinks}>
         {LINKS.map(link => (
           <Link key={link.text} to={link.href} className='router-link'>
             <div className={classnames(

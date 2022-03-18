@@ -15,13 +15,17 @@ function MobileHeader() {
   });
 
   useEffect(() => {
-    window.addEventListener('scroll', throttle(() => {
-      if(window.scrollY > 70) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    }, 100));
+    function listener() {
+      return throttle(() => {
+        if(window.scrollY > 70) {
+          setIsScrolled(true);
+        } else {
+          setIsScrolled(false);
+        }
+      }, 100);
+    };
+    window.addEventListener('scroll', listener());
+    return () => window.removeEventListener('scroll', listener()); // remove event listener when component is unmounted
   }, []);
 
   function toggleHamburgerClass() {

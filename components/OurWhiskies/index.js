@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { TABLEHEADERS } from '../../constants/tableHeaders';
+import { TABLEHEADERS } from '../../constants.js';
 
 function OurWhiskies() {
   const [whiskies, setWhiskies] = useState([]);
@@ -47,9 +47,9 @@ function OurWhiskies() {
     </TableCell>
   ));
 
-  let rows = whiskies.map((whiskey) => (
+  let rows = whiskies.map((whiskey, index) => (
     <TableRow 
-      key={whiskey[0]}
+      key={index}
     >
       <TableCell 
         key={whiskey[0]}
@@ -58,13 +58,15 @@ function OurWhiskies() {
       >
         {whiskey[0]}
       </TableCell>
-      <TableCell key={whiskey[1]}
-        style={{ backgroundColor: 'white' }}
+      <TableCell 
+        key={whiskey[1]}
+        style={{ backgroundColor: 'whitesmoke' }}
       >
         {whiskey[1]}
       </TableCell>
-      <TableCell key={whiskey[2]}
-        style={{ backgroundColor: 'white' }}
+      <TableCell 
+        key={whiskey[2]}
+        style={{ backgroundColor: 'whitesmoke' }}
       >
         {whiskey[2]}
       </TableCell>
