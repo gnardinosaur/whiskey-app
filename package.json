@@ -39,7 +39,6 @@
     "babel-core": "^6.26.3",
     "classnames": "^2.3.1",
     "core-util-is": "^1.0.2",
-    "googleapis": "^39.2.0",
     "lodash": "^4.17.21",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",

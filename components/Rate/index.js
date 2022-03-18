@@ -9,7 +9,7 @@ function Rate() {
 
   const [form, setForm] = useState({
     showForm: true,
-    payload: {} // payload obj will either be user submission data or google sheets error 
+    payload: [] // for now this is the lambda/googlesheet post reponse but will refactor to handle errors in the future
   });
 
   return (  

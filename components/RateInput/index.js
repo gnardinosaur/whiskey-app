@@ -9,7 +9,7 @@ function RateInput(props) {
       <FormControl className={props.css}>
         <InputLabel>Rating for Whiskey #{props.num}</InputLabel>
         <Input 
-          error={props.error ? true : false} 
+          error={props.error} 
           name={`${props.num - 1}`} 
           value={props.value} 
           placeholder='0 to 100' 

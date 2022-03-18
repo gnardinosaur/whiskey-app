@@ -6,30 +6,37 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
-import { validate, checkForTrueValues } from '../../helpers/formValidation';
-import { initClient, cleanFormData, postFormData } from '../../helpers/googleAPI';
+import { validateForm, checkForInputErrors } from '../../helpers/formValidation';
+import { initClient, cleanFormData, postFormData, authenticateServiceAcct, callLambda } from '../../helpers/googleAPI';
+import { MONTHS } from '../../constants.js';
 
 function RateForm(props) {
 
-  // using this state to render correct number of whiskey rating inputs
+  // on render, build this number of whiskey rating inputs
   const [formInputs, setFormInputs] = useState([0, 1, 2]);
 
-  // using this state to track and dispaly errors + as a boolean to submit form or not
-  const [errors, setErrors] = useState({
+  // track and dispaly input errors
+  const [formErrors, setErrors] = useState({
     name: false,
     month: false,
     year: false,
     ratings: [false, false, false]
   });
 
-  // using this state to set selects 
-  const [selectData, setSelectData] = useState({
+  const [selectOptions, setSelectOptions] = useState({
     names: [],
-    months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-    years: [2020, 2021]
+    months: MONTHS,
+    years: [new Date().getFullYear()]
   });
 
-  // set selects and pull member name data from GoogleSheet
+  // control form selects and inputs 
+  const [formData, setFormData] = useState({
+    name: '',
+    month: '',
+    year: '',
+    ratings: ['', '', '']
+  });
+
   useEffect(() => {
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Members!A:A?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
       method: 'GET',
@@ -38,7 +45,7 @@ function RateForm(props) {
       }
     })
     .then(resp => resp.json())
-    .then(data => fetchMembers(data.values.length)) //grab the number of rows and use that in the second fetch query so that it's dynamic
+    .then(data => fetchMembers(data.values.length))
   }, []);
 
   function fetchMembers(val) {
@@ -49,32 +56,31 @@ function RateForm(props) {
       }
     })
     .then(resp => resp.json())
-    .then(data =>   setSelectData({
-      ...selectData,
-      names: data.values
-    }))
+    .then(data => {
+      setSelectOptions({
+        ...selectOptions,
+        names: data.values
+      });
+    });
   };
 
-  // using this state to control form selects and inputs 
-  const [formData, setFormData] = useState({
-    name: '',
-    month: '',
-    year: '',
-    ratings: ['', '', ''],
-  });
-
-  function validateFormInputs(e) {
+  async function validateFormInputs(e) {
     e.preventDefault();
-    let inputErrors = validate(formData.name, formData.month, formData.year, formData.ratings, {...errors});
+    let inputErrors = validateForm(formData, {...formErrors});
     setErrors(inputErrors);
-    // if inputErrors has any true values do not initiate Google client 
-    if(checkForTrueValues(inputErrors)) initClient(submitForm);      
-  };
+    const userInputHasErrors = checkForInputErrors(inputErrors)
+    if(!userInputHasErrors) submitForm();
+  }
 
-  // convert submission formData object into an array for use by GoogleSheets API (function lives in googleAPI.js helper) & post inputs to Google sheet
   async function submitForm() {
-    let cleanData = await cleanFormData(formData);
-    let resp = await postFormData(cleanData);
+    let resp = await callLambda(formData)
+    props.setForm({
+      showForm: false,
+      payload: resp
+    }) 
+
+    /* PAST ERROR HANDLING CODE TO TRY AND IMPLEMNT WHEN LAMBA ERROR HANDLING IS FIGURED OUT
+
     if(resp.status = 200) {
        // set state of Rate component (parent) with submitted form data
       props.setForm({
@@ -88,12 +94,13 @@ function RateForm(props) {
         payload: resp
       }) 
     };
-  };
+    */
+  }
 
   function handleChange(e){
     // if input has error, remove error for that input
-    if(errors[e.target.name]) setErrors({ 
-      ...errors,
+    if(formErrors[e.target.name]) setErrors({ 
+      ...formErrors,
       [e.target.name]: false
     });
 
@@ -101,15 +108,15 @@ function RateForm(props) {
       ...formData,
       [e.target.name]: e.target.value
     });
-  };
+  }
 
   // set whiskey rating inputs -- must map through to keep correct oder in formData.ratings arr
   function handleInput(e){
     let targetIndex = parseInt(e.target.name);
     // if error, remove error for that input
-    if(errors.ratings[targetIndex]) setErrors({
-      ...errors,
-      ratings: errors.ratings.map((el, idx) => idx === targetIndex ? false : el)
+    if(formErrors.ratings[targetIndex]) setErrors({
+      ...formErrors,
+      ratings: formErrors.ratings.map((el, index) => index === targetIndex ? false : el)
     });
 
     let userRatings = [...formData.ratings].map((el, index) => index === targetIndex ? e.target.value : el)
@@ -117,38 +124,51 @@ function RateForm(props) {
       ...formData,
       ratings: userRatings
     });
-  };
+  }
 
   function addInput(){
-    setFormInputs([...formInputs, formInputs.length]); // when rate another whiskey btn is clicked add another num to formInput arr
+    setFormInputs([
+      ...formInputs, 
+      formInputs.length // when rate another whiskey btn is clicked add another index num to formInput arr
+    ]); 
     setFormData({
       ...formData,
       ratings: [...formData.ratings, ''] // when rate another whiskey btn is clicked add another blank element to formData.ratings arr for control
     });
     setErrors({
-      ...errors,
-      ratings: [...errors.ratings, ''] // when rate another whiskey btn is clicked add another blank element to errors.ratings arr for error tracking
+      ...formErrors,
+      ratings: [...formErrors.ratings, false] // when rate another whiskey btn is clicked add another blank element to errors.ratings arr for error tracking
     })
-  };
+  }
 
   // build members select
-  let nameSelect = selectData.names.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
+  let nameSelect = selectOptions.names.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>);
 
   // build month select
-  let monthSelect = selectData.months.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
+  let monthSelect = selectOptions.months.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>);
   
   // build year select
-  let yearSelect = selectData.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>)
+  let yearSelect = selectOptions.years.map(el => <MenuItem key={el} value={el}>{el}</MenuItem>);
 
   // render correct number of whiskey rating inputs
-  let ratingInputs = formInputs.map(el => <RateInput key={el} num={el + 1} value={formData.ratings[el]} handleInput={handleInput} error={errors.ratings[el]} css={styles.rateFormField}></RateInput>)
+  let ratingInputs = 
+    formInputs.map(el =>
+      <RateInput
+        key={el}
+        num={el + 1}
+        value={formData.ratings[el]}
+        handleInput={handleInput}
+        error={formErrors.ratings[el]}
+        css={styles.rateFormField}>
+      </RateInput>
+    );
   
   return (
     <form className={styles.rateFormContainer} onSubmit={validateFormInputs}>
       <div className={styles.select}>
         <FormControl className={styles.rateFormField}>
           <InputLabel>Name</InputLabel>
-          <Select error={errors.name ? true : false} name='name' value={formData.name} onChange={handleChange}>
+          <Select error={formErrors.name} name='name' value={formData.name} onChange={handleChange}>
             {nameSelect}
           </Select>
         </FormControl>
@@ -156,7 +176,7 @@ function RateForm(props) {
       <div className={styles.select}>
         <FormControl className={styles.rateFormField}>
           <InputLabel>Month</InputLabel>
-          <Select error={errors.month ? true : false} name='month' value={formData.month} onChange={handleChange}>
+          <Select error={formErrors.month} name='month' value={formData.month} onChange={handleChange}>
             {monthSelect}
           </Select>
         </FormControl>
@@ -164,7 +184,7 @@ function RateForm(props) {
       <div className={styles.select}>
         <FormControl className={styles.rateFormField}>
           <InputLabel>Year</InputLabel>
-          <Select error={errors.year ? true : false} name='year' value={formData.year} onChange={handleChange}>
+          <Select error={formErrors.year} name='year' value={formData.year} onChange={handleChange}>
             {yearSelect}
           </Select>
         </FormControl>
@@ -184,6 +204,6 @@ function RateForm(props) {
       </div>
     </form>
   )
-};
+}
 
 export default RateForm;

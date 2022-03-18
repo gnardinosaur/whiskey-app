@@ -1,33 +1,30 @@
-// validate form fields 
-/** 
- * Ratings: there is an error if the input value is not a number, less than 0, or greater than 100.
-*/
-export function validate(name, month, year, ratings, errors) {
+export function validateForm(formData, formErrors) {
   
-  if(name === '') errors['name'] = true;
+  if(formData.name === '') formErrors['name'] = true;
 
-  if (month === '') errors['month'] = true;
+  if (formData.month === '') formErrors['month'] = true;
 
-  if (year === '') errors['year'] = true;
+  if (formData.year === '') formErrors['year'] = true;
 
-  for(let i = 0; i < ratings.length; i++) {
-    if(parseInt(ratings[i]) > 100 || parseInt(ratings[i]) < 0 || isNaN(ratings[i])) {
-      errors.ratings[i] = true;
+  for(let i = 0; i < formData.ratings.length; i++) {
+    if(parseInt(formData.ratings[i]) > 100 || parseInt(formData.ratings[i]) < 0 || isNaN(formData.ratings[i])) {
+      formErrors.ratings[i] = true;
     }
-  };
-  
-  return errors
+  }
+
+  return formErrors;
 };
 
-export function checkForTrueValues(object, hasNoInputErrors = true) {
-  for(let key in object) {
-    if(object[key] instanceof Array) {
-      // if any of the ratings arr values are 'true', set hasNoInputErrors in parent call to 'false' so that we can return this value to the RateForm component
-      hasNoInputErrors = checkForTrueValues(object[key], hasNoInputErrors)
+export function checkForInputErrors(inputErrorsObject) {
+  let errorArray = [];
+
+  for(let key in inputErrorsObject) {
+    if(inputErrorsObject[key] instanceof Array) {
+      errorArray = [...errorArray, ...inputErrorsObject[key]];
     } else {
-      if(object[key]) hasNoInputErrors = false;
+      errorArray.push(inputErrorsObject[key]);
     }
   };
-  
-  return hasNoInputErrors 
-}
+
+  return errorArray.includes(true);
+};

@@ -1,5 +1,38 @@
-  const SCOPE = 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets';
+export async function callLambda(formData) {
+  const timestamp = new Date().toLocaleString();
+  formData.timestamp = timestamp;
 
+  try {
+    return fetch('https://vj6rsweqek.execute-api.us-east-1.amazonaws.com/default/whiskeyClubNYC', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(resp => resp.json())
+    .then(data => data);
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+/* OLD CODE USED WHEN USERS HAD TO LOG INTO GOOGLE TO SUBMIT - LIKELY DELETE IN THE FUTURE BUT KEEP FOR NOW JUST IN CASE
+
+const SCOPE = 'https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/spreadsheets';
+
+export async function authenticateServiceAcct() {
+    const doc = new GoogleSpreadsheet(process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID);
+
+    await doc.useServiceAccountAuth({
+      client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
+      private_key: process.env.GOOGLE_PRIVATE_KEY,
+    });
+
+    await doc.loadInfo();
+    console.log(doc.title);
+  }
+  
   // initialize Google API
   // 'cb' is 'submitForm' function from RateForm component and passed down until it's called by 'googleSignIn' function below
   export function initClient(cb) {
@@ -23,8 +56,8 @@
       .signIn({ scope: SCOPE })
       .then(function() { console.log('sign-in successful'); }, function(err) { console.error('error signing in:', err); })
       .then(() => cb())
-  };
-
+  }
+;
   export function cleanFormData(data, dataArr = []) {
     let values = Object.values(data);
     values.map(el => {
@@ -57,3 +90,4 @@
       function(err) { return err }
     );
   }
+  */
