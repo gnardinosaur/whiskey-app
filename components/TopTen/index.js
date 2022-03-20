@@ -4,6 +4,8 @@ import styles from './styles.scss';
 function TopTen() {
   const [topTen, setTopTen] = useState([]);
 
+  const defaultImageUrl = 'https://i.imgur.com/TyYV6pr.jpg';
+
   // read top ten whiskies from Google sheet --> top ten links and images are handled within the Google sheet
   useEffect(() => {
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Our whiskies!A2:E11?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
@@ -22,7 +24,7 @@ function TopTen() {
         <div className={styles.topTenItem} key={el[0]}>
           <a href={el[4]} target='_blank'>
             <div className={styles.topTenCard}>
-              <img src={el[3]} alt={el[1]}/>
+              <img src={el[3] || defaultImageUrl} alt={el[1]}/>
               <div className={styles.topTenCardMiddle}>
                 <div>#{el[0]}</div>
                 <br />
