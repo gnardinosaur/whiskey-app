@@ -78,6 +78,7 @@ $transition-time: .3s;
       }
       &.active {
         color: #f7a308;
+        outline: 1px solid black;
       }
     }
 

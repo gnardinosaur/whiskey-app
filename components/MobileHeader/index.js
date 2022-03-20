@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.scss';
 import classnames from 'classnames';
-import { throttle } from 'lodash';
 import MobileNavMenu from '../MobileNavMenu/index'
 
 
@@ -15,18 +14,16 @@ function MobileHeader() {
   });
 
   useEffect(() => {
-    function listener() {
-      return throttle(() => {
-        if(window.scrollY > 70) {
-          setIsScrolled(true);
-        } else {
-          setIsScrolled(false);
-        }
-      }, 100);
+    function onScroll() {
+      if(window.scrollY > 70) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-    window.addEventListener('scroll', listener());
-    return () => window.removeEventListener('scroll', listener()); // remove event listener when component is unmounted
-  }, []);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll); // remove event listener when component is unmounted
+  }, [isScrolled]);
 
   function toggleHamburgerClass() {
     setNavState({

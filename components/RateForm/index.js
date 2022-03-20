@@ -6,8 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { validateForm, checkForInputErrors } from '../../helpers/formValidation';
-import { initClient, cleanFormData, postFormData, authenticateServiceAcct, callLambda } from '../../helpers/googleAPI';
+import { callLambda } from '../../helpers/lambda';
 import { MONTHS } from '../../constants.js';
 
 function RateForm(props) {
@@ -36,6 +37,8 @@ function RateForm(props) {
     year: '',
     ratings: ['', '', '']
   });
+
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/values/Members!A:A?key=${process.env.REACT_APP_GOOGLE_SHEETS_API_KEY}`, {
@@ -73,28 +76,20 @@ function RateForm(props) {
   }
 
   async function submitForm() {
-    let resp = await callLambda(formData)
-    props.setForm({
-      showForm: false,
-      payload: resp
-    }) 
-
-    /* PAST ERROR HANDLING CODE TO TRY AND IMPLEMNT WHEN LAMBA ERROR HANDLING IS FIGURED OUT
-
-    if(resp.status = 200) {
-       // set state of Rate component (parent) with submitted form data
-      props.setForm({
-        showForm: false,
-        payload: formData
+    setIsLoading(true);
+    let resp = await callLambda(formData);
+    setIsLoading(false);
+    if(resp.statusCode === 200) {
+      props.setSheetsResponse({
+        show: 'success',
+        successData: resp.message
       }) 
     } else {
-      // set state of Rate component (parent) with error object
-      props.setForm({
-        showForm: false,
-        payload: resp
+      props.setSheetsResponse({
+        show: 'fail',
+        errorMessage: resp.message
       }) 
     };
-    */
   }
 
   function handleChange(e){
@@ -164,45 +159,48 @@ function RateForm(props) {
     );
   
   return (
-    <form className={styles.rateFormContainer} onSubmit={validateFormInputs}>
-      <div className={styles.select}>
-        <FormControl className={styles.rateFormField}>
-          <InputLabel>Name</InputLabel>
-          <Select error={formErrors.name} name='name' value={formData.name} onChange={handleChange}>
-            {nameSelect}
-          </Select>
-        </FormControl>
-      </div>
-      <div className={styles.select}>
-        <FormControl className={styles.rateFormField}>
-          <InputLabel>Month</InputLabel>
-          <Select error={formErrors.month} name='month' value={formData.month} onChange={handleChange}>
-            {monthSelect}
-          </Select>
-        </FormControl>
-      </div>
-      <div className={styles.select}>
-        <FormControl className={styles.rateFormField}>
-          <InputLabel>Year</InputLabel>
-          <Select error={formErrors.year} name='year' value={formData.year} onChange={handleChange}>
-            {yearSelect}
-          </Select>
-        </FormControl>
-      </div>
-      <div className={styles.select}>
-        {ratingInputs}
-      </div>
-      <div>
-        <Button className={styles.rateAnotherButton} onClick={addInput}>
-          Rate Another Whiskey
-        </Button>
-      </div>
-      <div>
-        <Button className={styles.submitButton} type='submit'>
-          Submit
-        </Button>
-      </div>
-    </form>
+    isLoading ?
+      <CircularProgress className={styles.spinner} size={50} color='inherit'/>
+    :
+      <form className={styles.rateFormContainer} onSubmit={validateFormInputs}>
+        <div className={styles.select}>
+          <FormControl className={styles.rateFormField}>
+            <InputLabel>Name</InputLabel>
+            <Select error={formErrors.name} name='name' value={formData.name} onChange={handleChange}>
+              {nameSelect}
+            </Select>
+          </FormControl>
+        </div>
+        <div className={styles.select}>
+          <FormControl className={styles.rateFormField}>
+            <InputLabel>Month</InputLabel>
+            <Select error={formErrors.month} name='month' value={formData.month} onChange={handleChange}>
+              {monthSelect}
+            </Select>
+          </FormControl>
+        </div>
+        <div className={styles.select}>
+          <FormControl className={styles.rateFormField}>
+            <InputLabel>Year</InputLabel>
+            <Select error={formErrors.year} name='year' value={formData.year} onChange={handleChange}>
+              {yearSelect}
+            </Select>
+          </FormControl>
+        </div>
+        <div className={styles.select}>
+          {ratingInputs}
+        </div>
+        <div>
+          <Button className={styles.rateAnotherButton} onClick={addInput}>
+            Rate Another Whiskey
+          </Button>
+        </div>
+        <div>
+          <Button className={styles.submitButton} type='submit'>
+            Submit
+          </Button>
+        </div>
+      </form>
   )
 }
 

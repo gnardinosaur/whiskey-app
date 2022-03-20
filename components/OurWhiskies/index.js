@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './styles.scss';
 import classnames from 'classnames';
 import Layout from '../Layout/index';
-import BannerWrap from '../BannerWrap';
+import HeaderImage from '../HeaderImage';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
@@ -76,7 +76,7 @@ function OurWhiskies() {
   return (
     <div>
       <Layout>
-        <BannerWrap />
+        <HeaderImage />
         <div className={styles.textContainer}>
           <h3>Our Whiskies</h3>
           <h5>
@@ -84,18 +84,23 @@ function OurWhiskies() {
             <a href={`https://docs.google.com/spreadsheets/d/${process.env.REACT_APP_GOOGLE_SHEETS_DOC_ID}/edit#gid=1971787420`} target='_blank'>here</a>
           </h5>
         </div>
-        <div className={styles.tableContainer}>
-          <Table className={styles.tableStyles}>
-            <TableHead>
-              <TableRow>
-                {headers}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows}
-            </TableBody>
-          </Table>
-        </div>
+        {
+          whiskies.length < 1 ?
+            <div></div>
+              : 
+            <div className={styles.tableContainer}>
+              <Table className={styles.tableStyles}>
+                <TableHead>
+                  <TableRow>
+                    {headers}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows}
+                </TableBody>
+              </Table>
+            </div>
+        }
       </Layout>
     </div>
   )
