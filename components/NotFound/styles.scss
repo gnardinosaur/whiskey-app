@@ -1,0 +1,22 @@
+.fourOhFourContainer {
+    position: absolute;
+    top: 30%;
+    right: 50%;
+    transform: translateX(50%);
+
+    h1 {
+        position: absolute;
+        right: 50%;
+        transform: translateX(50%);
+        text-transform: uppercase;
+        font-size: 4.5rem;
+        color: #f7a308;
+    }
+
+    h3 {
+        position: relative;
+        margin-top: 35%;
+        color: #f7a308;;
+        font-size: 1.5rem;
+    }
+}

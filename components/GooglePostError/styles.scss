@@ -1,0 +1,9 @@
+.errorMessage {
+    position: absolute;
+    right: 50%;
+    transform: translateX(50%);
+    font-style: italic;
+    font-size: 3rem;
+    color: red;
+    white-space: pre-line;
+}

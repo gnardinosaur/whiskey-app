@@ -1,6 +1,6 @@
 export const LINKS = [
     {text: 'Home', href: '/'},
-    {text: 'Our Whiskeys', href: '/our-whiskies'},
+    {text: 'Our Whiskeys', href: '/whiskies'},
     {text: 'Rate', href: '/rate'},
 ];
 
