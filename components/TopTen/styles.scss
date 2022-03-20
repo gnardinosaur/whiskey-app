@@ -17,7 +17,7 @@
 .topTenItem {
   padding: .5em;
   margin: .2em;
-  flex: 0 0 calc(50% - 10px);
+  flex: 0 0 calc(50% - 7px);
   background-color: #d3d3d3;
   display: flex;
   align-items: center;
@@ -26,7 +26,6 @@
 
 /* div overlay on each item so we can stretch image inside of it */
 .topTenCard {
-  overflow: hidden;
   position: relative;
   cursor: pointer;
 

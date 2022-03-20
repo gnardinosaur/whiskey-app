@@ -10,7 +10,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import { TABLEHEADERS } from '../../constants.js';
 
-function OurWhiskies() {
+function Whiskies() {
   const [whiskies, setWhiskies] = useState([]);
 
   useEffect(() => {
@@ -106,4 +106,4 @@ function OurWhiskies() {
   )
 }
 
-export default OurWhiskies;
+export default Whiskies;
