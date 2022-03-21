@@ -1,6 +1,6 @@
 # Whiskey Club NYC
 
-React FE + [Google Sheet](https://docs.google.com/spreadsheets/d/1W44Sp-kRNmeqLYDu1BsJRXooiSprzUXKCt30Y9083tg/edit#gid=1971787420) BE.
+React FE + Google Sheet BE.
 
 Writing to the sheet is done with AWS API Gateway + [Lambda]().
 
